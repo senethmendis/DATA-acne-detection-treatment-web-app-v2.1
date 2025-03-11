@@ -32,7 +32,7 @@ function SignInPage() {
 
 		// else successful
 		toast({ title: `Login successful!` });
-		return router.push("/dashboard");
+		return router.push("/");
 	};
 	return (
 		<>
