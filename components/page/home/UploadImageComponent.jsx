@@ -133,6 +133,12 @@ const UploadImage = () => {
 		setLoading(false);
 	};
 
+	const handleClearImage = () => {
+		setImage(null);
+		setFormData(null);
+		setResult(null);
+	};
+
 	return (
 		<>
 			<Separator className="my-5" />
@@ -167,6 +173,13 @@ const UploadImage = () => {
 						disabled={loading}
 						className="rounded-full max-w-52 px-10 bg-gradient-to-r from-pink-500 to-violet-500 font-bold">
 						{loading ? "Processing..." : "Upload Image"}
+					</Button>
+					<Button
+						type="reset"
+						onChange={handleClearImage}
+						disabled={loading}
+						className="rounded-full max-w-52 px-10 bg-gradient-to-r from-pink-500 to-violet-500 font-bold">
+						Clear
 					</Button>
 				</form>
 
