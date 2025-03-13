@@ -6,13 +6,14 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage, db } from "@/firebase/config";
 import { collection, addDoc } from "firebase/firestore";
 import { useAuthContext } from "@/context/AuthContext";
+import { getDocs } from "firebase/firestore";
 
 import Section from "@/components/common/Section";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
-import { FileImage, Rss } from "lucide-react";
+import { FileImage, Image, Loader, Rss } from "lucide-react";
 import { AiGenaratedWaterMarkLogo } from "@/assets/icons";
 import {
 	Accordion,
@@ -30,22 +31,47 @@ const UploadImage = () => {
 	const [image, setImage] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [result, setResult] = useState(null);
+	const [acneHistory, setAcneHistory] = useState([]);
 
 	// Fetch user data from Firestore
 	useEffect(() => {
 		if (user) {
 			setUserId(user.uid);
 			const getUserData = async () => {
-				const { result, error } = await getData("users", user.uid);
-				if (error) {
-					console.error("Error fetching user data:", error);
-				} else if (result.exists()) {
-					setFormData(result.data()); // Correctly setting formData
-				} else {
-					setFormData(null);
+				try {
+					// Fetch user profile data
+					const { result, error } = await getData("users", user.uid);
+					if (error) {
+						console.error("Error fetching user data:", error);
+						return;
+					}
+					if (result.exists()) {
+						setFormData(result.data()); // Correctly setting formData
+					} else {
+						setFormData(null);
+					}
+				} catch (error) {
+					console.error("Unexpected error fetching user data:", error);
 				}
 			};
+
+			const getUserAcneData = async (userId) => {
+				try {
+					const querySnapshot = await getDocs(
+						collection(db, `users/${userId}/acne_detections`)
+					);
+					const history = querySnapshot.docs.map((doc) => ({
+						id: doc.id,
+						...doc.data(),
+					}));
+					setAcneHistory(history); // ✅ Store in state
+				} catch (error) {
+					console.error("Error fetching acne data:", error);
+				}
+			};
+
 			getUserData();
+			getUserAcneData(user.uid); // ✅ Now storing the fetched data
 		}
 	}, [user]);
 
@@ -101,14 +127,13 @@ const UploadImage = () => {
 			const downloadURL = await getDownloadURL(storageRef);
 
 			// Save results to Firestore
-			await addDoc(collection(db, "acne_detections"), {
-				user_id,
+			await addDoc(collection(db, `users/${user.uid}/acne_detections`), {
 				image_url: downloadURL,
 				acne_spots,
 				total_acne_area,
 				severity,
 				timestamp: new Date(),
-				treatments,
+				treatments: treatments.map((treatment) => ({ description: treatment })), // Store as objects
 			});
 
 			// Update state with results
@@ -167,24 +192,30 @@ const UploadImage = () => {
 							/>
 						</label>
 					</div>
-
-					<Button
-						type="submit"
-						disabled={loading}
-						className="rounded-full max-w-52 px-10 bg-gradient-to-r from-pink-500 to-violet-500 font-bold">
-						{loading ? "Processing..." : "Upload Image"}
-					</Button>
-					<Button
-						type="reset"
-						onChange={handleClearImage}
-						disabled={loading}
-						className="rounded-full max-w-52 px-10 bg-gradient-to-r from-pink-500 to-violet-500 font-bold">
-						Clear
-					</Button>
+					<div className="flex gap-4">
+						<Button
+							type="submit"
+							disabled={loading}
+							className="rounded-full max-w-52 px-10 bg-gradient-to-r from-pink-500 to-violet-500 font-bold">
+							{loading && <Loader className="animate-spin" />}{" "}
+							{loading && `Processing...`} {!loading && "Upload Image"}
+						</Button>
+						<Button
+							type="reset"
+							onChange={handleClearImage}
+							disabled={loading}
+							className="rounded-full max-w-52 px-10 dark:bg-white dark:text-black text-white  border font-bold">
+							Clear
+						</Button>
+					</div>
 				</form>
 
 				<div className="w-full md:w-1/2 flex flex-col justify-center items-start gap-6 md:py-0">
-					{!result && <h1>Upload and process</h1>}
+					{!result && (
+						<h1 className="flex gap-3 font-semibold text-center">
+							<Image /> Upload an image and process
+						</h1>
+					)}
 					{result && (
 						<h1 className="font-bold text-xl">
 							Recommended Treatments and solutions
@@ -194,14 +225,28 @@ const UploadImage = () => {
 						type="single"
 						collapsible
 						className="w-full">
-						{result?.treatments.map((trtmnt, idx) => (
+						{acneHistory.map((entry, idx) => (
 							<AccordionItem
-								key={idx}
+								key={entry.id}
 								value={`item-${idx}`}>
-								<AccordionTrigger>{trtmnt}</AccordionTrigger>
+								<AccordionTrigger>
+									{`Acne Severity: ${
+										entry.severity
+									} (Detected on ${entry.timestamp
+										.toDate()
+										.toLocaleString()})`}
+								</AccordionTrigger>
 								<AccordionContent>
-									Yes. It comes with default styles that matches the
-									other components&apos; aesthetic.
+									<p>Total Spots: {entry.acne_spots}</p>
+									<p>Total Area: {entry.total_acne_area}</p>
+									<h3 className="font-bold mt-2">
+										Recommended Treatments:
+									</h3>
+									<ul className="list-disc ml-5">
+										{entry.treatments.map((treat, i) => (
+											<li key={i}>{treat.description}</li>
+										))}
+									</ul>
 								</AccordionContent>
 							</AccordionItem>
 						))}
