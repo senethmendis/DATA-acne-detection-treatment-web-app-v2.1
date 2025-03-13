@@ -1,7 +1,7 @@
 "use client";
 import Section from "@/components/common/Section";
 import React, { useEffect, useState } from "react";
-
+import { storage, db } from "@/firebase/config";
 import {
 	Carousel,
 	CarouselContent,
@@ -9,48 +9,63 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "@/components/ui/carousel";
-import TreatmentCardComponent from "@/components/page/dashboard/TreatmentCardComponent";
-import { TREATMENTS } from "@/constants";
+
 import GridBox from "@/components/page/dashboard/GridBox";
 import { Progress } from "@/components/ui/progress";
-
+import { collection, addDoc } from "firebase/firestore";
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import getData from "@/firebase/firestore/getData";
+import { getDocs } from "firebase/firestore";
+import { AboutPageImage } from "@/assets";
 
 const Dashboard = () => {
 	const { user } = useAuthContext();
 	const router = useRouter();
-
+	const [acneHistorys, setAcneHistory] = useState();
 	const [data, setData] = useState({});
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
-
-	const [treatmentArray, setTreatmentArray] = useState([]);
-
-	useEffect(() => {
-		const fetchData = async () => {
-			setLoading(true);
-			const { result, error } = await getData("users", user.uid);
-
-			if (error) {
-				setError(error);
-			} else if (result.exists()) {
-				setData(result.data());
-				setTreatmentArray(result.data().treatments);
-				console.log(result.data());
-			} else {
-				setData({});
-				setTreatmentArray([]);
-			}
-			setLoading(false);
-		};
-		fetchData();
-	}, [user.uid]);
 
 	useEffect(() => {
 		if (user == null) router.push("/");
+
+		const getUserData = async () => {
+			try {
+				// Fetch user profile data
+				const { result, error } = await getData("users", user.uid);
+				if (error) {
+					console.error("Error fetching user data:", error);
+					return;
+				}
+				if (result.exists()) {
+					setData(result.data()); // Correctly setting formData
+				} else {
+					setData(null);
+				}
+			} catch (error) {
+				console.error("Unexpected error fetching user data:", error);
+			}
+		};
+
+		const getUserAcneData = async (userId) => {
+			try {
+				const querySnapshot = await getDocs(
+					collection(db, `users/${userId}/acne_detections`)
+				);
+				const history = querySnapshot.docs.map((doc) => ({
+					id: doc.id,
+					...doc.data(),
+				}));
+				setAcneHistory(history);
+			} catch (error) {
+				console.error("Error fetching acne data:", error);
+			}
+		};
+
+		getUserData();
+		getUserAcneData(user.uid);
 	}, [user]);
+
+	console.log(acneHistorys);
 
 	return (
 		<>
@@ -61,17 +76,21 @@ const Dashboard = () => {
 
 				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 h-[600px] gap-4 dark:text-black">
 					<GridBox className="flex flex-col justify-start   rounded-xl md:col-span-2">
-						<h1 className="text-2xl capitalize">
-							{data.firstName} {data.lastName}
-						</h1>
-						<h3 className="text-xl capitalize font-bold">
-							{data.age} <span className="font-thin">years</span>
-						</h3>
-						<p className="">{data.email}</p>
+						<div className="w-full h-full">
+							<h1 className="text-2xl capitalize">
+								{data.firstName} {data.lastName}
+							</h1>
+							<h3 className="text-xl capitalize font-bold">
+								{data.age} <span className="font-thin">years</span>
+							</h3>
+							<p className="">{data.email}</p>
+						</div>
 					</GridBox>
 
-					<GridBox className={""}>
-						<h1 className="text-5xl font-bold">{data.treatmentCount || 0}</h1>
+					<GridBox>
+						<h1 className="text-6xl font-bold">
+							{acneHistorys?.length || 0}
+						</h1>
 						<p>Treatments</p>
 					</GridBox>
 					<GridBox>
@@ -99,24 +118,7 @@ const Dashboard = () => {
 				</div>
 			</section>
 
-			{/* <Section className=" max-w-[1024px]  w-full mx-auto h-auto px-4  lg:px-4 xl:px-0 py-10">
-				<div className="flex  flex-col w-full ">
-					<h2 className="text-4xl font-bold mb-4">Suggested Treatments</h2>
-					<Carousel>
-						<CarouselContent>
-							{treatmentArray.map((treatment, idx) => (
-								<CarouselItem
-									key={idx}
-									className="basis-1/3">
-									<TreatmentCardComponent {...treatment} />
-								</CarouselItem>
-							))}
-						</CarouselContent>
-						<CarouselPrevious />
-						<CarouselNext />
-					</Carousel>
-				</div>
-			</Section> */}
+			<Section className=" max-w-[1024px]  w-full mx-auto h-auto px-4  lg:px-4 xl:px-0 py-10"></Section>
 		</>
 	);
 };
