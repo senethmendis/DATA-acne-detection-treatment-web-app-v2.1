@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import axios from "axios";
 
 import getData from "@/firebase/firestore/getData";
@@ -164,6 +164,9 @@ const UploadImage = () => {
 		setResult(null);
 	};
 
+	console.log("results", result);
+	console.log("user", user);
+
 	return (
 		<>
 			<Separator className="my-5" />
@@ -257,7 +260,7 @@ const UploadImage = () => {
 			{result && (
 				<Section className="flex flex-row mb-10">
 					<div
-						className="w-full bg-cover rounded-xl px-2  flex flex-col justify-start items-start  md:py-0"
+						className="w-full border bg-contain bg-center rounded-xl bg-no-repeat px-2  flex flex-col justify-start items-start  md:py-0"
 						style={{
 							backgroundImage: result && `url(${result.image_url})`,
 						}}>
