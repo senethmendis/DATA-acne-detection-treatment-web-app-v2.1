@@ -9,11 +9,12 @@ import { Label } from "@/components/ui/label";
 import { RegisterImage } from "@/assets";
 
 import { toast, useToast } from "@/hooks/use-toast";
+import { Loader } from "lucide-react";
 
 function SignUpPage() {
 	const router = useRouter();
 	const { toast } = useToast();
-
+	const [loading, setLoading] = useState(false);
 	const [formData, setFormData] = useState({
 		firstName: "",
 		lastName: "",
@@ -38,6 +39,7 @@ function SignUpPage() {
 			age,
 			displayName: `${firstName + " " + lastName}`,
 		});
+		setLoading(true);
 
 		if (error) {
 			alert(`Error: ${error.message}`);
@@ -45,6 +47,7 @@ function SignUpPage() {
 				title: `Error ${error.message}`,
 			});
 		} else {
+			setLoading(false);
 			toast({
 				title: `Welcome ${result.displayName}!`,
 			});
@@ -152,7 +155,8 @@ function SignUpPage() {
 						<Button
 							type="submit"
 							className="min-w-40">
-							Sign up
+							{loading && <Loader className="size-6 animate-spin" />} Sign
+							up
 						</Button>
 					</form>
 				</div>

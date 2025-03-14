@@ -2,20 +2,19 @@
 import React, { useState } from "react";
 import signIn from "@/firebase/auth/signIn";
 import { useRouter } from "next/navigation";
-import Section from "@/components/common/Section";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { GalleryVerticalEnd } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LoginImage } from "@/assets";
+import { useAuthContext } from "@/context/AuthContext";
+import Link from "next/link";
 
 function SignInPage() {
 	const router = useRouter();
 	const { toast } = useToast();
-
-	const displayName = "";
+	const { user } = useAuthContext();
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -30,10 +29,12 @@ function SignInPage() {
 			return console.log(error);
 		}
 
-		// else successful
 		toast({ title: `Login successful!` });
 		return router.push("/");
 	};
+
+	console.log(user);
+
 	return (
 		<>
 			<div className="grid min-h-svh lg:grid-cols-2">
@@ -67,11 +68,11 @@ function SignInPage() {
 									<div className="grid gap-2">
 										<div className="flex items-center">
 											<Label htmlFor="password">Password</Label>
-											<a
-												href="#"
+											<Link
+												href="/reset"
 												className="ml-auto text-sm underline-offset-4 hover:underline">
 												Forgot your password?
-											</a>
+											</Link>
 										</div>
 										<Input
 											id="password"
@@ -106,11 +107,11 @@ function SignInPage() {
 								</div>
 								<div className="text-center text-sm">
 									Don&apos;t have an account?{" "}
-									<a
-										href="#"
+									<Link
+										href={"/signup"}
 										className="underline underline-offset-4">
 										Sign up
-									</a>
+									</Link>
 								</div>
 							</form>
 						</div>
