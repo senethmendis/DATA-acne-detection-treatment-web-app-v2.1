@@ -13,7 +13,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
-import { FileImage, Image, Loader, Rss } from "lucide-react";
+import {
+	ExternalLink,
+	FileImage,
+	Image,
+	Link2,
+	Link2Icon,
+	Link2OffIcon,
+	Loader,
+	Rss,
+} from "lucide-react";
 import { AiGenaratedWaterMarkLogo } from "@/assets/icons";
 import {
 	Accordion,
@@ -21,6 +30,8 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import Link from "next/link";
 
 const UploadImage = () => {
 	const { toast } = useToast();
@@ -64,14 +75,14 @@ const UploadImage = () => {
 						id: doc.id,
 						...doc.data(),
 					}));
-					setAcneHistory(history); // ✅ Store in state
+					setAcneHistory(history);
 				} catch (error) {
 					console.error("Error fetching acne data:", error);
 				}
 			};
 
 			getUserData();
-			getUserAcneData(user.uid); // ✅ Now storing the fetched data
+			// getUserAcneData(user.uid);
 		}
 	}, [user]);
 
@@ -165,7 +176,6 @@ const UploadImage = () => {
 	};
 
 	console.log("results", result);
-	console.log("user", user);
 
 	return (
 		<>
@@ -220,40 +230,29 @@ const UploadImage = () => {
 						</h1>
 					)}
 					{result && (
-						<h1 className="font-bold text-xl">
-							Recommended Treatments and solutions
-						</h1>
+						<>
+							<h1 className="font-bold text-xl">
+								Recommended Treatments and solutions
+							</h1>
+						</>
 					)}
-					<Accordion
-						type="single"
-						collapsible
-						className="w-full">
-						{acneHistory.map((entry, idx) => (
-							<AccordionItem
-								key={entry.id}
-								value={`item-${idx}`}>
-								<AccordionTrigger>
-									{`Acne Severity: ${
-										entry.severity
-									} (Detected on ${entry.timestamp
-										.toDate()
-										.toLocaleString()})`}
-								</AccordionTrigger>
-								<AccordionContent>
-									<p>Total Spots: {entry.acne_spots}</p>
-									<p>Total Area: {entry.total_acne_area}</p>
-									<h3 className="font-bold mt-2">
-										Recommended Treatments:
-									</h3>
-									<ul className="list-disc ml-5">
-										{entry.treatments.map((treat, i) => (
-											<li key={i}>{treat.description}</li>
-										))}
-									</ul>
-								</AccordionContent>
-							</AccordionItem>
-						))}
-					</Accordion>
+
+					<ScrollArea>
+						<ul className="my-6 ml-6 list-disc [&>li]:mt-2">
+							{result?.treatments.map((item, idx) => (
+								<li key={idx}>{item}</li>
+							))}
+						</ul>
+					</ScrollArea>
+
+					{result && (
+						<Link
+							href={"/dashboard"}
+							className="flex flex-row gap-2">
+							Go to the Dashboard to see more details
+							<ExternalLink />
+						</Link>
+					)}
 				</div>
 			</Section>
 
