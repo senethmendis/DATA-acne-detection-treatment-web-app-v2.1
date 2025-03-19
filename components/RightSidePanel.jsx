@@ -17,7 +17,7 @@ import { useAuthContext } from "@/context/AuthContext";
 import { signOutUser } from "@/utils/signOut";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { User2Icon } from "lucide-react";
+import { LogOut, User2Icon } from "lucide-react";
 
 const RightSidePanel = () => {
 	const { user } = useAuthContext();
@@ -58,7 +58,7 @@ const RightSidePanel = () => {
 			<SheetContent>
 				<SheetHeader>
 					<SheetTitle className="text-black dark:text-white">
-						{hide && "Seneth Mendis"}
+						{hide && user.displayName}
 					</SheetTitle>
 
 					<SheetDescription></SheetDescription>
@@ -72,22 +72,28 @@ const RightSidePanel = () => {
 							Dashboard
 						</Link>
 					)}
-					<Link
-						href={"/signin"}
-						className="underline">
-						Signin
-					</Link>
-					<Link
-						href={"/signup"}
-						className="underline">
-						SignUp
-					</Link>
 
 					{hide && (
 						<Link
 							href={"/profile"}
 							className="underline">
 							Profile
+						</Link>
+					)}
+
+					{!hide && (
+						<Link
+							href={"/signin"}
+							className="underline">
+							Signin
+						</Link>
+					)}
+
+					{!hide && (
+						<Link
+							href={"/signup"}
+							className="underline">
+							SignUp
 						</Link>
 					)}
 				</div>
@@ -99,7 +105,7 @@ const RightSidePanel = () => {
 								onClick={handleSignOut}
 								type="submit"
 								className="mt-5">
-								Sign Out
+								<LogOut /> Sign Out
 							</Button>
 						)}
 					</SheetClose>
