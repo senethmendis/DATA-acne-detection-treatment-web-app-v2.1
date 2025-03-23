@@ -180,7 +180,7 @@ const UploadImage = () => {
 	return (
 		<>
 			<Separator className="my-5" />
-			<Section className="flex flex-row mb-10">
+			<Section className="flex flex-col md:flex-row mb-10">
 				<form
 					onSubmit={handleSubmit}
 					className="w-full md:w-1/2 flex flex-col justify-center items-center gap-6 md:py-0">
@@ -223,7 +223,7 @@ const UploadImage = () => {
 					</div>
 				</form>
 
-				<div className="w-full md:w-1/2 flex flex-col justify-center items-start gap-6 md:py-0">
+				<div className="w-full md:w-1/2 flex flex-col justify-center md:items-start items-center mt-10 md:mt-0 gap-6 md:py-0">
 					{!result && (
 						<h1 className="flex gap-3 font-semibold text-center">
 							<Image /> Upload an image and process
@@ -232,12 +232,12 @@ const UploadImage = () => {
 					{result && (
 						<>
 							<h1 className="font-bold text-xl">
-								Recommended Treatments and solutions
+								Recommended Treatments and Solutions
 							</h1>
 						</>
 					)}
 
-					<ScrollArea>
+					<ScrollArea className="px-5 md:px-0">
 						<ul className="my-6 ml-6 list-disc [&>li]:mt-2">
 							{result?.treatments.map((item, idx) => (
 								<li key={idx}>{item}</li>
@@ -248,7 +248,7 @@ const UploadImage = () => {
 					{result && (
 						<Link
 							href={"/dashboard"}
-							className="flex flex-row gap-2">
+							className="flex flex-row gap-2 md:bg-none bg-gradient-to-l from-yellow-500 to-green-400 p-2 rounded-md">
 							Go to the Dashboard to see more details
 							<ExternalLink />
 						</Link>
@@ -259,7 +259,7 @@ const UploadImage = () => {
 			{result && (
 				<Section className="flex flex-row mb-10">
 					<div
-						className="w-full border bg-contain bg-center rounded-xl bg-no-repeat px-2  flex flex-col justify-start items-start  md:py-0"
+						className="w-full h-screen md:h-auto m-4 md:m-0 border bg-contain bg-center rounded-xl bg-no-repeat px-2  flex flex-col justify-start items-start  md:py-0"
 						style={{
 							backgroundImage: result && `url(${result.image_url})`,
 						}}>

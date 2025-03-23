@@ -10,7 +10,7 @@ const Footer = () => {
 
 	return (
 		<footer className="max-w-[1024px] mx-auto w-full">
-			<div className="w-full h-16 justify-between items-center flex">
+			<div className="w-full h-16 justify-between items-center flex md:flex-row flex-col">
 				<div className="flex flex-row gap-5">
 					<h4>Contact Us</h4>
 					<Instagram />
