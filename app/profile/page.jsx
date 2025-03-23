@@ -124,7 +124,7 @@ const UserProfilePage = () => {
 			reset({
 				firstName: userData?.firstName || "",
 				lastName: userData?.lastName || "",
-				age: userDat?.age || "",
+				age: userData?.age || "",
 				displayName: user?.displayName || "",
 			});
 		}
