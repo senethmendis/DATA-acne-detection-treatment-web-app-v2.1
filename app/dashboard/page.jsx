@@ -84,11 +84,26 @@ const Dashboard = () => {
 					<GridBox className="flex flex-col justify-start   rounded-xl md:col-span-2">
 						<div className="w-full h-full">
 							<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight  text-transparent lg:text-5xl bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text">
-								{data.firstName} {data.lastName}
+								{data?.firstName ? (
+									data?.firstName
+								) : (
+									<p className="font-light tracking-wider ml-1">
+										No First Name
+									</p>
+								)}
+								{data?.lastName ? (
+									data?.lastName
+								) : (
+									<p className="font-light tracking-wider ml-1">
+										No Last Name
+									</p>
+								)}
 							</h1>
-							<p className="font-light tracking-wider ml-1">{data.email}</p>
+							<p className="font-light tracking-wider ml-1">
+								{data?.email}
+							</p>
 							<h3 className="text-xl capitalize font-bold mt-5">
-								{data.age} <span className="font-thin">years</span>
+								{data?.age} <span className="font-thin">years</span>
 							</h3>
 						</div>
 					</GridBox>
