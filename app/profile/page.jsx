@@ -11,15 +11,17 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, LoaderCircle, LoaderPinwheelIcon } from "lucide-react";
 
 import { useAuthContext } from "@/context/AuthContext";
 import getDoument from "@/firebase/firestore/getData";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { updateProfile, getAuth } from "firebase/auth";
 import addData from "@/firebase/firestore/addData";
+import { Router, useRouter } from "next/router";
 
 const UserProfilePage = () => {
+	const router = useRouter;
 	const auth = getAuth();
 	const { toast } = useToast();
 	const { user } = useAuthContext();
@@ -28,13 +30,14 @@ const UserProfilePage = () => {
 	const [userData, setUserData] = useState({});
 	const [userTretmentsList, setUserTretmentsList] = useState([]);
 	const [imageUploading, setImageUploading] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const { register, handleSubmit, reset } = useForm({
 		defaultValues: {
-			firstName: userData.firstName,
-			lastName: userData.lastName,
-			age: userData.age,
-			displayName: user.displayName,
+			firstName: userData?.firstName,
+			lastName: userData?.lastName,
+			age: userData?.age,
+			displayName: user?.displayName,
 		},
 	});
 
@@ -58,10 +61,12 @@ const UserProfilePage = () => {
 	const handleFormSubmit = (formData) => {
 		updateDisplatName(formData.displayName)
 			.then((res) => {
-				addData("users", user.uid, { ...formData }).then((e) => {
+				setLoading(true);
+				addData("users", user?.uid, { ...formData }).then((e) => {
 					toast({
 						title: "Profile Details Updated!",
 					});
+					setLoading(false);
 				});
 			})
 			.catch((e) => {
@@ -114,26 +119,27 @@ const UserProfilePage = () => {
 	};
 
 	useEffect(() => {
+		if (!user) return router.push("/");
 		if (userData && Object.keys(userData).length > 0) {
 			reset({
-				firstName: userData.firstName || "",
-				lastName: userData.lastName || "",
-				age: userData.age || "",
-				displayName: user.displayName || "",
+				firstName: userData?.firstName || "",
+				lastName: userData?.lastName || "",
+				age: userDat?.age || "",
+				displayName: user?.displayName || "",
 			});
 		}
-	}, [userData, reset, user.displayName]);
+	}, [userData, reset, user?.displayName]);
 
 	useEffect(() => {
 		fetchData();
 	}, [user]);
 
 	return (
-		<Section className="w-full flex flex-row items-center">
-			<div className="w-1/2 flex flex-col gap-5">
+		<Section className="w-full flex flex-row items-center my-10 md:my-0">
+			<div className="w-auto mx-auto flex flex-col items-center gap-5">
 				<div
 					style={{ backgroundImage: `url(${AboutPageImage.src})` }}
-					className="w-[250px] max-w-[250px] h-[250px] max-h-[250px]  bg-cover bg-center rounded-full border-2"
+					className="w-[150px] h-[150px] md:w-[250px] md:max-w-[250px] md:h-[250px] md:max-h-[250px]  bg-cover bg-center rounded-full border-2"
 				/>
 
 				{/* 🔹 Image Upload Button */}
@@ -142,15 +148,17 @@ const UserProfilePage = () => {
 					accept="image/*"
 					onChange={(e) => handleImageUpload(e.target.files[0])}
 					disabled={imageUploading}
-					className="text-sm text-gray-600"
+					className="text-sm text-gray-600 hidden"
 				/>
 				{imageUploading && <p className="text-sm text-blue-500">Uploading...</p>}
 
+				<p className="py-2 text-white font-bold text-center rounded-md md:bg-none bg-gradient-to-l from-yellow-600 to-green-600 w-full px-3 ">
+					Email: {userData.email}
+				</p>
 				<form
 					className="flex flex-col gap-5"
 					onSubmit={handleSubmit(handleFormSubmit)}>
 					<div>
-						<p className="py-2 text-gray-400">Email: {userData.email}</p>
 						<Label
 							htmlFor="displayName"
 							className="mb-2">
@@ -188,27 +196,10 @@ const UserProfilePage = () => {
 						</div>
 					</div>
 
-					<Button type="submit">Save</Button>
+					<Button type="submit">
+						{loading && <LoaderCircle className="animate-spin" />} Save
+					</Button>
 				</form>
-			</div>
-			<div className="w-1/2 flex flex-col  justify-center items-start gap-5 px-10">
-				<h1 className="text-4xl">User Treatment List</h1>
-				<ScrollArea className="min-h-[400px] h-full w-full rounded-md border p-3">
-					{userTretmentsList?.map((treatment, idx) => (
-						<div key={idx}>
-							<Link
-								href={""}
-								className="flex flex-row gap-3">
-								{treatment.treatmentTitle} <ArrowUpRight size={15} />
-							</Link>
-							<p className="text-gray-600">
-								{treatment.treatmentDescription}
-							</p>
-
-							<Separator className="my-2" />
-						</div>
-					))}
-				</ScrollArea>
 			</div>
 		</Section>
 	);

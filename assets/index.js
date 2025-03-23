@@ -71,7 +71,7 @@ export const DataLogoDark = (props) => {
 	);
 };
 
-export const DataLogoLight = () => {
+export const DataLogoLight = (props) => {
 	return (
 		<svg
 			width={192}

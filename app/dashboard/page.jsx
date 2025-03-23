@@ -24,6 +24,8 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
+import { ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 const Dashboard = () => {
 	const { user } = useAuthContext();
@@ -127,7 +129,13 @@ const Dashboard = () => {
 				</div>
 			</section>
 
-			<Section className=" max-w-[1024px]  w-full mx-auto h-auto px-4  lg:px-4 xl:px-0 py-10">
+			<Section className="max-w-[1024px]  w-full mx-auto h-auto px-4  lg:px-4 xl:px-0 py-10 sm:my-0 my-10">
+				<Link
+					href={"/doctors"}
+					className="my-10 text-2xl flex gap-5 items-center bg-gradient-to-l from-pink-600 to-purple-500 p-2 rounded-md text-wrap">
+					See the Doctors List <ExternalLink />{" "}
+				</Link>
+
 				<h2 className="text-3xl font-bold">Analysis History</h2>
 				<Accordion
 					type="single"

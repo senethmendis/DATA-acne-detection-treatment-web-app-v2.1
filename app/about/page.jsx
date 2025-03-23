@@ -27,9 +27,9 @@ const TREATMENT_POINTS = [
 
 const AboutPage = () => {
 	return (
-		<>
-			<Section className="flex flex-row py-10 ">
-				<div className="w-1/2 flex flex-col gap-10 justify-center">
+		<main className="max-w-[1024px] w-full mx-auto">
+			<Section className="flex flex-col md:flex-row py-10">
+				<div className="w-full md:w-1/2 flex flex-col gap-10 justify-center items-center">
 					<h1 className="text-5xl w-[80%] font-bold">
 						A Smarter Way to Treat Acne
 					</h1>
@@ -78,9 +78,7 @@ const AboutPage = () => {
 
 					<div
 						className="w-full h-28 mt-28 bg-cover bg-center"
-						style={{ backgroundImage: `url(${AboutPageImage.src})` }}>
-						seneth
-					</div>
+						style={{ backgroundImage: `url(${AboutPageImage.src})` }}></div>
 				</div>
 			</Section>
 
@@ -98,7 +96,7 @@ const AboutPage = () => {
 					))}
 				</div>
 			</Section>
-		</>
+		</main>
 	);
 };
 
