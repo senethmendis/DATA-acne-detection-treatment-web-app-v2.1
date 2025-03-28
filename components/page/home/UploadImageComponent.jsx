@@ -13,23 +13,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
-import {
-	ExternalLink,
-	FileImage,
-	Image,
-	Link2,
-	Link2Icon,
-	Link2OffIcon,
-	Loader,
-	Rss,
-} from "lucide-react";
-import { AiGenaratedWaterMarkLogo } from "@/assets/icons";
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
-} from "@/components/ui/accordion";
+import { ExternalLink, FileImage, Image, Loader } from "lucide-react";
+
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
 
@@ -180,7 +165,8 @@ const UploadImage = () => {
 	return (
 		<>
 			<Separator className="my-5" />
-			<Section className="flex flex-col md:flex-row mb-10">
+
+			<Section className="flex flex-col md:flex-row ">
 				<form
 					onSubmit={handleSubmit}
 					className="w-full md:w-1/2 flex flex-col justify-center items-center gap-6 md:py-0">
@@ -209,10 +195,20 @@ const UploadImage = () => {
 						<Button
 							type="submit"
 							disabled={loading}
+							className="relative inline-flex w-48 cursor-pointer  overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-50">
+							<span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+							<span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-dark px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+								{loading && <Loader className="animate-spin" />}{" "}
+								{loading && `Processing...`} {!loading && "Upload Image"}
+							</span>
+						</Button>
+						{/* <Button
+							type="submit"
+							disabled={loading}
 							className="rounded-full max-w-52 px-10 bg-gradient-to-r from-pink-500 to-violet-500 font-bold">
 							{loading && <Loader className="animate-spin" />}{" "}
 							{loading && `Processing...`} {!loading && "Upload Image"}
-						</Button>
+						</Button> */}
 						<Button
 							type="reset"
 							onChange={handleClearImage}
@@ -277,8 +273,6 @@ const UploadImage = () => {
 					</div>
 				</Section>
 			)}
-
-			<Separator className="my-5" />
 		</>
 	);
 };
