@@ -25,20 +25,23 @@ const Home = () => {
 		<main className="max-w-[1024px] w-full mx-auto">
 			{hide && <UploadImageComponent />}
 
-			<Section className=" flex-row ">
-				<div className="justify-center items-center flex flex-col gap-2">
-					<h1 className="text-3xl md:px-0 my-3 md:my-0 px-4 md:text-5xl font-bold text-center md:text-start">
-						Datection and Treatment for Acne
-					</h1>
-					<p className="text-wrap  md:text-left px-4 md:px-0 text-center  max-w-[400px]">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
-						labore quaerat et. Maxime, quisquam nisi?
-					</p>
+			<Section className=" flex-col items-center gap-5 flex justify-center py-10">
+				<h1 className="text-2xl md:text-3xl md:px-0 my-3 md:my-0 px-4 font-bold text-center mx-auto md:text-start">
+					Datection and Treatment for Acne
+				</h1>
+				<p className="  px-4 md:px-0 text-center  ">
+					<span className="font-semibold bg-gradient-to-l from-pink-600 bg-clip-text text-transparent to-purple-500">
+						AI-powered{" "}
+					</span>
+					website that analyzes facial images to detect acne, <br /> assess its
+					severity, and provide personalized insights.
+				</p>
 
+				<Link href={"/about"}>
 					<Button className="md:max-w-[200px] w-[300px]">
 						Discover <ArrowRight />
 					</Button>
-				</div>
+				</Link>
 			</Section>
 
 			<Section
