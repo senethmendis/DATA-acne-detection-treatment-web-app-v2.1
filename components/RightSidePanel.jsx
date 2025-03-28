@@ -57,7 +57,7 @@ const RightSidePanel = () => {
 			</SheetTrigger>
 			<SheetContent>
 				<SheetHeader>
-					<SheetTitle className="text-black dark:text-white">
+					<SheetTitle className="font-bold text-2xl bg-gradient-to-l from-pink-600 to-purple-600 bg-clip-text text-transparent">
 						{hide && user.displayName}
 					</SheetTitle>
 
