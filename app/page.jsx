@@ -9,6 +9,24 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
+import { SparklesCore } from "@/components/ui/sparkles";
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+
+const words = [
+	{
+		text: "✨ AI",
+		className: "text-blue-500 dark:text-orange-500",
+	},
+	{
+		text: "-",
+		className: "text-blue-500 dark:text-orange-500",
+	},
+
+	{
+		text: "Powered",
+		className: "text-blue-500 dark:text-orange-500",
+	},
+];
 
 const Home = () => {
 	const { user } = useAuthContext();
@@ -25,11 +43,11 @@ const Home = () => {
 		<main className="max-w-[1024px] w-full mx-auto">
 			{hide && <UploadImageComponent />}
 
-			<Section className=" flex-col items-center gap-5 flex justify-center py-10">
-				<h1 className="text-2xl md:text-3xl md:px-0 my-3 md:my-0 px-4 font-bold text-center mx-auto md:text-start">
+			<Section className="relative flex-col items-center gap-5 flex justify-center mb-10">
+				<h1 className="md:text-7xl text-3xl lg:text-5xl font-bold text-center dark:text-white ">
 					Datection and Treatment for Acne
 				</h1>
-				<p className="  px-4 md:px-0 text-center  ">
+				<p className="text-2xl  px-4 md:px-0 text-center  ">
 					<span className="font-semibold bg-gradient-to-l from-pink-600 bg-clip-text text-transparent to-purple-500">
 						AI-powered{" "}
 					</span>
@@ -38,34 +56,34 @@ const Home = () => {
 				</p>
 
 				<Link href={"/about"}>
-					<Button className="md:max-w-[200px] w-[300px]">
+					<Button className="md:max-w-[200px] w-[300px] hover:bg-pink-600 transition-all ease-out hover:text-white">
 						Discover <ArrowRight />
 					</Button>
 				</Link>
+
+				<div className="aqua__gradient w-[40%] h-[40%] absolute -z-40" />
 			</Section>
 
-			<Section
-				style={{ backgroundImage: `url(${AboutPageImage.src})` }}
-				className="hidden w-full bg-cover bg-center rounded-lg max-w-[1024px] mx-auto justify-center gap-5 items-center md:flex md:flex-row flex-col h-screen lg:h-[650px] md:px-5 lg:px-0"></Section>
-
-			<Section className="w-full bg-gradient-to-r from-pink-500 to-violet-500 flex flex-col gap-10 justify-center items-center my-10 md:rounded-2xl py-10 md:py-0 ">
-				<h1 className="text-2xl md:text-5xl font-bold text-wrap text-center  ">
-					Get Your Accne Treatments <br />
-					from AI-Powered <br />
-					Skincare Sytem
+			<Section className="dark:bg-black/50 backdrop-blur-lg  relative w-full border flex flex-col gap-10 justify-center items-center my-10 md:rounded-2xl py-10 md:py-0 ">
+				<h1 className="text-3xl md:text-5xl font-bold flex flex-col justify-center items-center text-center dark:text-white">
+					<TypewriterEffectSmooth words={words} />
+					Acne and skincare system
 				</h1>
+
 				<div className="w-full mx-auto flex items-center justify-center gap-10">
 					<Link href={"/about"}>
-						<Button className="rounded-full  w-32  border-2 bg-transparent text-white font-bold border-white">
+						<Button className="shadow-[0_4px_14px_0_rgb(0,118,255,39%)] hover:shadow-[0_6px_20px_rgba(0,118,255,23%)] hover:bg-[rgba(0,118,255,0.9)] px-8 py-2 bg-[#0070f3] rounded-full text-white font-light transition duration-200 ease-linear">
 							Learn More
 						</Button>
 					</Link>
 					<Button
-						className="rounded-full w-32   border-2 font-bold border-white"
+						className="shadow-[0_4px_14px_0_rgb(0,118,255,39%)] hover:shadow-[0_6px_20px_rgba(0,118,255,23%)] hover:bg-[rgba(0,118,255,0.9)] px-8 py-2 bg-[#0070f3] rounded-full text-white font-light transition duration-200 ease-linear"
 						onClick={() => router.push("/signin")}>
 						Login
 					</Button>
 				</div>
+
+				<div className="pink__gradient w-[400px] h-[400px] absolute -z-50" />
 			</Section>
 		</main>
 	);
