@@ -17,6 +17,7 @@ import { ExternalLink, FileImage, Image, Loader } from "lucide-react";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 
 const UploadImage = () => {
 	const { toast } = useToast();
@@ -166,14 +167,17 @@ const UploadImage = () => {
 		<>
 			<Separator className="my-5" />
 
-			<Section className="flex flex-col md:flex-row ">
+			<Section className="flex flex-col md:flex-row relative ">
+				<div className="orange__gradient w-[300px] h-[300px] absolute -z-40" />
+				<div className="aqua__gradient w-[300px] h-[300px] absolute -z-40 right-0" />
+
 				<form
 					onSubmit={handleSubmit}
 					className="w-full md:w-1/2 flex flex-col justify-center items-center gap-6 md:py-0">
-					<div className="flex items-center justify-center w-full">
+					<div className="flex items-center justify-center w-full ">
 						<label
 							htmlFor="dropzone-file"
-							className="flex flex-col items-center justify-center p-4 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500">
+							className="flex flex-col items-center justify-center p-4 border border-gray-300 border-dashed rounded-lg cursor-pointer bg-transparent backdrop-blur-3xl shadow-lg ">
 							<div className="flex flex-col items-center justify-center pt-5 pb-6">
 								<p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
 									<span className="font-semibold">Click to upload</span>{" "}
@@ -188,6 +192,7 @@ const UploadImage = () => {
 								type="file"
 								accept="image/*"
 								onChange={handleFileChange}
+								className="bg-transparent"
 							/>
 						</label>
 					</div>
@@ -202,13 +207,7 @@ const UploadImage = () => {
 								{loading && `Processing...`} {!loading && "Upload Image"}
 							</span>
 						</Button>
-						{/* <Button
-							type="submit"
-							disabled={loading}
-							className="rounded-full max-w-52 px-10 bg-gradient-to-r from-pink-500 to-violet-500 font-bold">
-							{loading && <Loader className="animate-spin" />}{" "}
-							{loading && `Processing...`} {!loading && "Upload Image"}
-						</Button> */}
+
 						<Button
 							type="reset"
 							onChange={handleClearImage}
@@ -221,8 +220,12 @@ const UploadImage = () => {
 
 				<div className="w-full md:w-1/2 flex flex-col justify-center md:items-start items-center mt-10 md:mt-0 gap-6 md:py-0">
 					{!result && (
-						<h1 className="flex gap-3 font-semibold text-center">
-							<Image /> Upload an image and process
+						<h1 className="flex flex-row items-center gap-3 font-semibold text-center">
+							<Image />{" "}
+							<TextGenerateEffect
+								className="mb-4"
+								words={"Upload an image and process"}
+							/>
 						</h1>
 					)}
 					{result && (

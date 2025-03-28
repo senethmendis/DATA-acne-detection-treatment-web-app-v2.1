@@ -146,5 +146,5 @@ body {
 
 .orange__gradient {
 	background: linear-gradient(90deg, #f3b976 0%, #ff754b 100%);
-	filter: blur(900px);
+	filter: blur(300px);
 }

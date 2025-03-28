@@ -14,17 +14,17 @@ import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 
 const words = [
 	{
-		text: "AI-Powered",
+		text: "✨ AI",
 		className: "text-blue-500 dark:text-orange-500",
 	},
 	{
-		text: "Acne",
+		text: "-",
+		className: "text-blue-500 dark:text-orange-500",
 	},
+
 	{
-		text: "And",
-	},
-	{
-		text: "Skincare Sytem.",
+		text: "Powered",
+		className: "text-blue-500 dark:text-orange-500",
 	},
 ];
 
@@ -65,7 +65,10 @@ const Home = () => {
 			</Section>
 
 			<Section className="dark:bg-black/50 backdrop-blur-lg  relative w-full border flex flex-col gap-10 justify-center items-center my-10 md:rounded-2xl py-10 md:py-0 ">
-				<TypewriterEffectSmooth words={words} />
+				<h1 className="text-3xl md:text-5xl font-bold flex flex-col justify-center items-center text-center dark:text-white">
+					<TypewriterEffectSmooth words={words} />
+					Acne and skincare system
+				</h1>
 
 				<div className="w-full mx-auto flex items-center justify-center gap-10">
 					<Link href={"/about"}>
