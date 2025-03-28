@@ -1,35 +1,16 @@
 "use client";
 import Section from "@/components/common/Section";
 import React, { useEffect, useState } from "react";
-import { storage, db } from "@/firebase/config";
-import { Skeleton } from "@/components/ui/skeleton";
-import {
-	Carousel,
-	CarouselContent,
-	CarouselItem,
-	CarouselNext,
-	CarouselPrevious,
-} from "@/components/ui/carousel";
-
-import GridBox from "@/components/page/dashboard/GridBox";
-import { Progress } from "@/components/ui/progress";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import getData from "@/firebase/firestore/getData";
-import { getDocs } from "firebase/firestore";
-import { AboutPageImage, DashGridImage01 } from "@/assets";
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
-} from "@/components/ui/accordion";
-import { ExternalLink } from "lucide-react";
-import Link from "next/link";
 import { WobbleCard } from "@/components/ui/wobble-card";
 import { Separator } from "@/components/ui/separator";
 import AnalysisHistoryCard from "@/components/page/dashboard/AnalysisHistoryCard";
+import Link from "next/link";
+import { ExternalLink } from "lucide-react";
+import { db } from "@/firebase/config"; // Ensure the Firebase config is imported
 
 const Dashboard = () => {
 	const { user } = useAuthContext();
@@ -47,7 +28,6 @@ const Dashboard = () => {
 
 		const getUserData = async () => {
 			try {
-				// Fetch user profile data
 				const { result, error } = await getData("users", user.uid);
 				if (error) {
 					setError("Failed to fetch user data.");
@@ -67,7 +47,7 @@ const Dashboard = () => {
 			try {
 				setIsHistoryLoading(true);
 				const querySnapshot = await getDocs(
-					collection(db, `users/${userId}/acne_detections`)
+					collection(db, `users/${userId}/acne_detections`) // Ensure the correct path is used
 				);
 				const history = querySnapshot.docs.map((doc) => ({
 					id: doc.id,
@@ -82,8 +62,10 @@ const Dashboard = () => {
 		};
 
 		getUserData();
-		getUserAcneData(user.uid);
+		getUserAcneData(user.uid); // Ensure `user.uid` is passed correctly
 	}, [user, router]);
+
+	console.log(acneHistory);
 
 	return (
 		<>
@@ -94,19 +76,19 @@ const Dashboard = () => {
 
 				{error && <div className="text-red-500 font-semibold mb-4">{error}</div>}
 
-				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 h-[600px] gap-4 dark:text-black">
+				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 dark:text-black">
 					<WobbleCard
-						containerClassName="col-span-1 lg:col-span-2 h-full bg-white min-h-[500px] lg:min-h-[300px]"
+						containerClassName="col-span-1 lg:col-span-2 h-full bg-white min-h-[300px] sm:min-h-[400px] lg:min-h-[300px]"
 						className="bg-black text-white dark:text-black dark:bg-white">
 						<div className="w-full h-full">
-							<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-transparent lg:text-5xl bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text">
+							<h1 className="scroll-m-20 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-transparent bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text">
 								{data?.firstName || "No First Name"}{" "}
 								{data?.lastName || "No Last Name"}
 							</h1>
 							<p className="font-light tracking-wider ml-1">
 								{data?.email || "No Email"}
 							</p>
-							<h3 className="text-xl capitalize font-bold mt-5">
+							<h3 className="text-lg sm:text-xl capitalize font-bold mt-5">
 								{data?.age || "N/A"}{" "}
 								<span className="font-thin">years</span>
 							</h3>
@@ -114,28 +96,26 @@ const Dashboard = () => {
 					</WobbleCard>
 
 					<WobbleCard className="text-white dark:text-black bg-blend-multiply dark:bg-white bg-black">
-						<h1 className="text-[6rem] font-bold">
+						<h1 className="text-4xl sm:text-[6rem] font-bold">
 							{acneHistory?.length || 0}
 						</h1>
 						<p className="font-semibold tracking-wide">Analysis Count</p>
 					</WobbleCard>
 					<WobbleCard className="bg-black text-white dark:text-black dark:bg-white">
-						<h1 className="text-5xl font-bold">
-							{/* Replace with dynamic treatments count if available */}
+						<h1 className="text-4xl sm:text-5xl font-bold">
 							{data?.treatments?.length || 0}
 						</h1>
 						<p>Treatments</p>
 					</WobbleCard>
 					<WobbleCard className="md:col-span-2 bg-black text-white dark:text-black dark:bg-white">
-						<h1 className="text-5xl font-bold">
-							{/* Replace with dynamic treatments count if available */}
+						<h1 className="text-4xl sm:text-5xl font-bold">
 							{data?.treatments?.length || 0}
 						</h1>
 						<p>Treatments</p>
 					</WobbleCard>
 					<Link
 						href={"/doctors"}
-						className="text-xl text-white flex gap-5 w-full h-full cursor-pointer">
+						className="text-lg sm:text-xl text-white flex gap-5 w-full h-full cursor-pointer">
 						<WobbleCard>
 							<p>
 								Click here to see the Doctors List <ExternalLink />
