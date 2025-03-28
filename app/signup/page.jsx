@@ -49,7 +49,7 @@ function SignUpPage() {
 		} else {
 			setLoading(false);
 			toast({
-				title: `Welcome ${result.displayName}!`,
+				title: `Welcome To DATA !!!`,
 			});
 			router.push("/");
 		}

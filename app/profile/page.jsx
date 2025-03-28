@@ -94,7 +94,7 @@ const UserProfilePage = () => {
 		if (!file) return;
 
 		setImageUploading(true);
-		const storageRef = ref(storage, `avatars/${user.uid}`);
+		const storageRef = ref(storage, `profile_images/${user.uid}`);
 
 		try {
 			// Upload image to Firebase Storage
@@ -104,11 +104,18 @@ const UserProfilePage = () => {
 			// Update Firebase Auth Profile
 			await updateProfile(auth.currentUser, { photoURL: downloadURL });
 
-			// Save image URL to Firestore
-			await addData("users", user.uid, { avatar: downloadURL });
+			// Save image URL to Firestore with profile_image key
+			await addData("users", user.uid, {
+				avatar: downloadURL,
+				profile_image: downloadURL,
+			});
 
 			// Update UI
-			setUserData((prev) => ({ ...prev, avatar: downloadURL }));
+			setUserData((prev) => ({
+				...prev,
+				avatar: downloadURL,
+				profile_image: downloadURL,
+			}));
 			toast({ title: "Avatar Updated!" });
 		} catch (err) {
 			console.log("Error uploading file:", err);
@@ -138,19 +145,26 @@ const UserProfilePage = () => {
 		<Section className="w-full flex flex-col md:flex-row items-center my-10 md:my-0 px-4 sm:px-0">
 			<div className="w-full md:w-auto mx-auto flex flex-col items-center gap-5">
 				<div
-					style={{ backgroundImage: `url(${AboutPageImage.src})` }}
+					style={{
+						backgroundImage: `url(${userData.avatar || AboutPageImage.src})`,
+					}}
 					className="w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] md:w-[250px] md:h-[250px] bg-cover bg-center rounded-full border-2"
 				/>
 
 				{/* 🔹 Image Upload Button */}
+				<label
+					htmlFor="avatarUpload"
+					className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
+					{imageUploading ? "Uploading..." : "Upload Image"}
+				</label>
 				<input
+					id="avatarUpload"
 					type="file"
 					accept="image/*"
 					onChange={(e) => handleImageUpload(e.target.files[0])}
 					disabled={imageUploading}
-					className="text-sm text-gray-600 hidden"
+					className="hidden"
 				/>
-				{imageUploading && <p className="text-sm text-blue-500">Uploading...</p>}
 
 				<p className="py-2 text-white font-bold text-center rounded-md bg-gradient-to-l from-yellow-600 to-green-600 w-full px-3 sm:px-5">
 					Email: {userData.email}
