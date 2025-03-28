@@ -18,6 +18,7 @@ import { ExternalLink, FileImage, Image, Loader } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { AiGenaratedWaterMarkLogo } from "@/assets/icons";
 
 const UploadImage = () => {
 	const { toast } = useToast();
@@ -247,7 +248,7 @@ const UploadImage = () => {
 					{result && (
 						<Link
 							href={"/dashboard"}
-							className="flex flex-row gap-2 md:bg-none bg-gradient-to-l from-yellow-500 to-green-400 p-2 rounded-md">
+							className="flex flex-row gap-2  bg-gradient-to-l from-yellow-500 to-green-400 p-2 rounded-md">
 							Go to the Dashboard to see more details
 							<ExternalLink />
 						</Link>
@@ -264,8 +265,7 @@ const UploadImage = () => {
 						}}>
 						<>
 							<h1 className="mt-2 font-semibold p-2 bg-white/50 rounded-md text-black flex flex-row items-center gap-2">
-								<AiGenaratedWaterMarkLogo className="w-5 h-5 " />{" "}
-								Processed Image
+								✨ Processed Image
 							</h1>
 							{!result && (
 								<h1 className="dark:text-white/20 text-black/50 flex gap-5">

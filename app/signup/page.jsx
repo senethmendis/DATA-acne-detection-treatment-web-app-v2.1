@@ -57,40 +57,40 @@ function SignUpPage() {
 
 	return (
 		<>
-			<Section className="flex flex-row w-full h-screen ">
+			<Section className="flex flex-col sm:flex-row w-full h-screen px-4 sm:px-0 gap-5 sm:gap-0">
 				<div
-					className="w-1/2 flex flex-col items-end bg-cover bg-center rounded-2xl m-5"
+					className="w-full sm:w-1/2 flex flex-col items-center sm:items-end bg-cover bg-center rounded-2xl"
 					style={{ backgroundImage: `url(${RegisterImage.src})` }}></div>
-				<div className="w-1/2 mx-10 flex flex-col justify-center items-start">
-					<h1 className="text-4xl font-bold  mb-30">Sign up</h1>
+				<div className="w-full sm:w-1/2 mx-0 sm:mx-10 flex flex-col justify-center items-center sm:items-start">
+					<h1 className="text-3xl sm:text-4xl font-bold mb-5 sm:mb-10 text-center sm:text-left">
+						Sign up
+					</h1>
 					<form
 						onSubmit={handleSubmit}
-						className="form ">
-						<div className="py-10 flex flex-col gap-4">
-							<div className="flex flex-row gap-4">
-								<div className=" flex flex-col">
+						className="w-full max-w-[400px]">
+						<div className="py-5 sm:py-10 flex flex-col gap-4">
+							<div className="flex flex-col sm:flex-row gap-4">
+								<div className="flex flex-col w-full">
 									<Label
 										htmlFor="firstName"
 										className="mb-2">
 										First Name
 									</Label>
-
 									<Input
 										onChange={handleChange}
 										required
 										type="text"
 										name="firstName"
 										id="firstName"
-										placeholder="Jhon"
+										placeholder="John"
 									/>
 								</div>
-								<div className=" flex flex-col">
+								<div className="flex flex-col w-full">
 									<Label
 										htmlFor="lastName"
 										className="mb-2">
 										Last Name
 									</Label>
-
 									<Input
 										onChange={handleChange}
 										required
@@ -101,13 +101,12 @@ function SignUpPage() {
 									/>
 								</div>
 							</div>
-							<div className=" flex flex-col">
+							<div className="flex flex-col">
 								<Label
 									htmlFor="age"
 									className="mb-2">
 									Age
 								</Label>
-
 								<Input
 									onChange={handleChange}
 									required
@@ -119,13 +118,12 @@ function SignUpPage() {
 									placeholder="24"
 								/>
 							</div>
-							<div className=" flex flex-col">
+							<div className="flex flex-col">
 								<Label
 									htmlFor="email"
 									className="mb-2">
 									Email
 								</Label>
-
 								<Input
 									onChange={handleChange}
 									required
@@ -135,13 +133,12 @@ function SignUpPage() {
 									placeholder="example@mail.com"
 								/>
 							</div>
-							<div className=" flex flex-col">
+							<div className="flex flex-col">
 								<Label
 									htmlFor="password"
 									className="mb-2">
 									Password
 								</Label>
-
 								<Input
 									onChange={handleChange}
 									required
@@ -154,7 +151,7 @@ function SignUpPage() {
 						</div>
 						<Button
 							type="submit"
-							className="min-w-40">
+							className="w-full sm:w-auto flex justify-center items-center gap-2">
 							{loading && <Loader className="size-6 animate-spin" />} Sign
 							up
 						</Button>

@@ -10,11 +10,13 @@ import {
 } from "@/components/ui/accordion";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const AnalysisHistoryCard = ({ acneHistory = [], isHistoryLoading }) => {
+const AnalysisHistoryCard = ({ acneHistory, isHistoryLoading }) => {
 	return (
 		<>
-			<Section className="max-w-[1024px]  w-full mx-auto h-auto px-4  lg:px-4 xl:px-0 py-10 sm:my-0 my-10">
-				<h2 className="text-3xl font-bold">Analysis History</h2>
+			<Section className="max-w-[1024px] w-full mx-auto h-auto px-4 sm:px-2 lg:px-4 xl:px-0 py-10 sm:my-0 my-10">
+				<h2 className="text-2xl sm:text-3xl font-bold text-center sm:text-left">
+					Analysis History
+				</h2>
 				<Accordion
 					type="single"
 					collapsible
@@ -31,8 +33,8 @@ const AnalysisHistoryCard = ({ acneHistory = [], isHistoryLoading }) => {
 							key={entry.id}
 							value={`item-${idx}`}
 							className="border-b border-gray-700">
-							<AccordionTrigger className="flex justify-between items-center py-3">
-								<h2 className="text-lg font-medium">
+							<AccordionTrigger className="flex flex-col sm:flex-row justify-between items-start sm:items-center py-3">
+								<h2 className="text-base sm:text-lg font-medium">
 									Acne Severity:
 									<span
 										className={`ml-2 font-semibold ${
@@ -45,22 +47,22 @@ const AnalysisHistoryCard = ({ acneHistory = [], isHistoryLoading }) => {
 										{entry.severity}
 									</span>
 								</h2>
-								<span className="text-sm text-gray-500">
+								<span className="text-sm text-gray-500 mt-2 sm:mt-0">
 									Detected on -{" "}
 									{entry.timestamp.toDate().toLocaleString()}
 								</span>
 							</AccordionTrigger>
-							<AccordionContent className="p-4 bg-gray-800 rounded-md mb-3">
-								<p className="text-gray-300">
+							<AccordionContent className="p-3 sm:p-4 bg-gray-800 rounded-md mb-3">
+								<p className="text-sm sm:text-base text-gray-300">
 									Total Spots:{" "}
 									<span className="font-semibold">
 										{entry.acne_spots}
 									</span>
 								</p>
-								<h3 className="font-semibold mt-3 text-gray-200">
+								<h3 className="font-semibold mt-3 text-gray-200 text-sm sm:text-base">
 									Recommended Treatments:
 								</h3>
-								<ul className="list-disc ml-5 text-gray-400">
+								<ul className="list-disc ml-4 sm:ml-5 text-gray-400 text-sm sm:text-base">
 									{entry.treatments.map((treat, i) => (
 										<li key={i}>{treat.description}</li>
 									))}
@@ -78,11 +80,11 @@ export default AnalysisHistoryCard;
 
 const SkeletonDashboard = () => {
 	return (
-		<div className="flex items-center space-x-4">
-			<Skeleton className="h-12 w-12 rounded-full" />
+		<div className="flex items-start sm:items-center space-x-3 sm:space-x-4">
+			<Skeleton className="h-10 sm:h-12 w-10 sm:w-12 rounded-full" />
 			<div className="space-y-2">
-				<Skeleton className="h-4 w-[250px]" />
-				<Skeleton className="h-4 w-[200px]" />
+				<Skeleton className="h-4 w-[120px] sm:w-[250px]" />
+				<Skeleton className="h-4 w-[80px] sm:w-[200px]" />
 			</div>
 		</div>
 	);

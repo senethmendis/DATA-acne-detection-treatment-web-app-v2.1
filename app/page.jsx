@@ -40,50 +40,54 @@ const Home = () => {
 	}, []);
 
 	return (
-		<main className="max-w-[1024px] w-full mx-auto">
+		<main className="max-w-[1024px] w-full mx-auto px-4 sm:px-0">
 			{hide && <UploadImageComponent />}
 
 			<Section className="relative flex-col items-center gap-5 flex justify-center mb-10">
-				<h1 className="md:text-7xl text-3xl lg:text-5xl font-bold text-center dark:text-white ">
+				<h1 className="md:text-7xl text-3xl lg:text-5xl font-bold text-center dark:text-white">
 					Datection and Treatment for Acne
 				</h1>
-				<p className="text-2xl  px-4 md:px-0 text-center  ">
+				<p className="text-lg sm:text-2xl px-2 sm:px-0 text-center">
 					<span className="font-semibold bg-gradient-to-l from-pink-600 bg-clip-text text-transparent to-purple-500">
 						AI-powered{" "}
 					</span>
-					website that analyzes facial images to detect acne, <br /> assess its
-					severity, and provide personalized insights.
+					website that analyzes facial images to detect acne,{" "}
+					<br className="hidden sm:block" /> assess its severity, and provide
+					personalized insights.
 				</p>
 
 				<Link href={"/about"}>
-					<Button className="md:max-w-[200px] w-[300px] hover:bg-pink-600 transition-all ease-out hover:text-white">
+					<Button className="w-full sm:w-[300px] md:max-w-[200px] hover:bg-pink-600 transition-all ease-out hover:text-white">
 						Discover <ArrowRight />
 					</Button>
 				</Link>
 
-				<div className="aqua__gradient w-[40%] h-[40%] absolute -z-40" />
+				<div className="aqua__gradient w-[60%] sm:w-[40%] h-[60%] sm:h-[40%] absolute -z-40" />
 			</Section>
 
-			<Section className="dark:bg-black/50 backdrop-blur-lg  relative w-full border flex flex-col gap-10 justify-center items-center my-10 md:rounded-2xl py-10 md:py-0 ">
-				<h1 className="text-3xl md:text-5xl font-bold flex flex-col justify-center items-center text-center dark:text-white">
-					<TypewriterEffectSmooth words={words} />
-					Acne and skincare system
+			<Section className="dark:bg-black/50 backdrop-blur-lg relative w-full border flex flex-col gap-8 sm:gap-10 justify-center items-center my-10 rounded-2xl py-8 sm:py-10">
+				<h1 className="text-xl sm:text-3xl md:text-5xl mx-auto flex flex-col justify-center font-bold text-center dark:text-white">
+					<TypewriterEffectSmooth
+						className={"text-2xl font-bold"}
+						words={words}
+					/>
+					<span className="block mt-2">Acne and Skincare System</span>
 				</h1>
 
-				<div className="w-full mx-auto flex items-center justify-center gap-10">
+				<div className="w-full flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
 					<Link href={"/about"}>
-						<Button className="shadow-[0_4px_14px_0_rgb(0,118,255,39%)] hover:shadow-[0_6px_20px_rgba(0,118,255,23%)] hover:bg-[rgba(0,118,255,0.9)] px-8 py-2 bg-[#0070f3] rounded-full text-white font-light transition duration-200 ease-linear">
+						<Button className="w-full sm:w-auto shadow-md hover:shadow-lg hover:bg-blue-600 px-6 py-3 bg-blue-500 rounded-full text-white font-medium transition duration-200 text-center">
 							Learn More
 						</Button>
 					</Link>
 					<Button
-						className="shadow-[0_4px_14px_0_rgb(0,118,255,39%)] hover:shadow-[0_6px_20px_rgba(0,118,255,23%)] hover:bg-[rgba(0,118,255,0.9)] px-8 py-2 bg-[#0070f3] rounded-full text-white font-light transition duration-200 ease-linear"
+						className="w-[120px] sm:w-[300px] shadow-md hover:shadow-lg hover:bg-blue-600 px-6 py-3 bg-blue-500 rounded-full text-white font-medium transition duration-200 text-center"
 						onClick={() => router.push("/signin")}>
 						Login
 					</Button>
 				</div>
 
-				<div className="pink__gradient w-[400px] h-[400px] absolute -z-50" />
+				<div className="pink__gradient w-[150px] sm:w-[300px] h-[150px] sm:h-[300px] absolute -z-50" />
 			</Section>
 		</main>
 	);

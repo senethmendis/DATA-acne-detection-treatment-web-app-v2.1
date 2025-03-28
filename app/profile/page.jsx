@@ -135,11 +135,11 @@ const UserProfilePage = () => {
 	}, [user]);
 
 	return (
-		<Section className="w-full flex flex-row items-center my-10 md:my-0">
-			<div className="w-auto mx-auto flex flex-col items-center gap-5">
+		<Section className="w-full flex flex-col md:flex-row items-center my-10 md:my-0 px-4 sm:px-0">
+			<div className="w-full md:w-auto mx-auto flex flex-col items-center gap-5">
 				<div
 					style={{ backgroundImage: `url(${AboutPageImage.src})` }}
-					className="w-[150px] h-[150px] md:w-[250px] md:max-w-[250px] md:h-[250px] md:max-h-[250px]  bg-cover bg-center rounded-full border-2"
+					className="w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] md:w-[250px] md:h-[250px] bg-cover bg-center rounded-full border-2"
 				/>
 
 				{/* 🔹 Image Upload Button */}
@@ -152,11 +152,11 @@ const UserProfilePage = () => {
 				/>
 				{imageUploading && <p className="text-sm text-blue-500">Uploading...</p>}
 
-				<p className="py-2 text-white font-bold text-center rounded-md md:bg-none bg-gradient-to-l from-yellow-600 to-green-600 w-full px-3 ">
+				<p className="py-2 text-white font-bold text-center rounded-md bg-gradient-to-l from-yellow-600 to-green-600 w-full px-3 sm:px-5">
 					Email: {userData.email}
 				</p>
 				<form
-					className="flex flex-col gap-5"
+					className="flex flex-col gap-5 w-full max-w-[400px]"
 					onSubmit={handleSubmit(handleFormSubmit)}>
 					<div>
 						<Label
@@ -167,36 +167,35 @@ const UserProfilePage = () => {
 						<Input {...register("displayName", { required: true })} />
 					</div>
 					<div className="flex flex-col gap-3">
-						<div className=" flex flex-col">
+						<div className="flex flex-col">
 							<Label
 								htmlFor="firstName"
 								className="mb-2">
 								First Name
 							</Label>
-
 							<Input {...register("firstName", { required: true })} />
 						</div>
-						<div className=" flex flex-col">
+						<div className="flex flex-col">
 							<Label
 								htmlFor="lastName"
 								className="mb-2">
 								Last Name
 							</Label>
-
 							<Input {...register("lastName", { required: true })} />
 						</div>
-						<div className=" flex flex-col">
+						<div className="flex flex-col">
 							<Label
 								htmlFor="age"
 								className="mb-2">
 								Age
 							</Label>
-
 							<Input {...register("age", { required: true })} />
 						</div>
 					</div>
 
-					<Button type="submit">
+					<Button
+						type="submit"
+						className="w-full sm:w-auto flex justify-center items-center gap-2">
 						{loading && <LoaderCircle className="animate-spin" />} Save
 					</Button>
 				</form>
