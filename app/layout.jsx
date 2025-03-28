@@ -1,3 +1,5 @@
+"use client";
+import { usePathname } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/Header";
@@ -16,12 +18,9 @@ const geistMono = Geist_Mono({
 	subsets: ["latin"],
 });
 
-export const metadata = {
-	title: "DATA",
-	description: "Detection and Treatment for Acne",
-};
-
 const RootLayout = ({ children }) => {
+	const pathname = usePathname();
+
 	return (
 		<html
 			lang="en"
@@ -36,7 +35,7 @@ const RootLayout = ({ children }) => {
 						<Header />
 						<main>{children}</main>
 						<Toaster />
-						<Footer />
+						{pathname !== "/about" && <Footer />}
 					</ThemeProvider>
 				</AuthContextProvider>
 			</body>

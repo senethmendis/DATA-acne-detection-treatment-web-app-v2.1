@@ -2,6 +2,7 @@
 import Section from "@/components/common/Section";
 import React, { useEffect, useState } from "react";
 import { storage, db } from "@/firebase/config";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
 	Carousel,
 	CarouselContent,
@@ -26,36 +27,45 @@ import {
 } from "@/components/ui/accordion";
 import { ExternalLink } from "lucide-react";
 import Link from "next/link";
+import { WobbleCard } from "@/components/ui/wobble-card";
+import { Separator } from "@/components/ui/separator";
+import AnalysisHistoryCard from "@/components/page/dashboard/AnalysisHistoryCard";
 
 const Dashboard = () => {
 	const { user } = useAuthContext();
 	const router = useRouter();
-	const [acneHistorys, setAcneHistory] = useState([]);
+	const [acneHistory, setAcneHistory] = useState([]);
 	const [data, setData] = useState({});
+	const [isHistoryLoading, setIsHistoryLoading] = useState(false);
+	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		if (user == null) router.push("/");
+		if (!user) {
+			router.push("/");
+			return;
+		}
 
 		const getUserData = async () => {
 			try {
 				// Fetch user profile data
 				const { result, error } = await getData("users", user.uid);
 				if (error) {
-					console.error("Error fetching user data:", error);
+					setError("Failed to fetch user data.");
 					return;
 				}
 				if (result.exists()) {
-					setData(result.data()); // Correctly setting formData
+					setData(result.data());
 				} else {
 					setData(null);
 				}
 			} catch (error) {
-				console.error("Unexpected error fetching user data:", error);
+				setError("An unexpected error occurred while fetching user data.");
 			}
 		};
 
 		const getUserAcneData = async (userId) => {
 			try {
+				setIsHistoryLoading(true);
 				const querySnapshot = await getDocs(
 					collection(db, `users/${userId}/acne_detections`)
 				);
@@ -65,121 +75,88 @@ const Dashboard = () => {
 				}));
 				setAcneHistory(history);
 			} catch (error) {
-				console.error("Error fetching acne data:", error);
+				setError("Failed to fetch acne analysis history.");
+			} finally {
+				setIsHistoryLoading(false);
 			}
 		};
 
 		getUserData();
 		getUserAcneData(user.uid);
-	}, [user]);
-
-	console.log(acneHistorys);
+	}, [user, router]);
 
 	return (
 		<>
-			<section className=" max-w-[1024px] w-full mx-auto h-auto px-4  lg:px-4 xl:px-0">
+			<Section className="max-w-[1024px] w-full h-auto px-4 lg:px-4 xl:px-0">
 				<div className="w-auto">
 					<h1 className="text-3xl font-bold my-5">Dashboard</h1>
 				</div>
 
+				{error && <div className="text-red-500 font-semibold mb-4">{error}</div>}
+
 				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 h-[600px] gap-4 dark:text-black">
-					<GridBox className="flex flex-col justify-start   rounded-xl md:col-span-2">
+					<WobbleCard
+						containerClassName="col-span-1 lg:col-span-2 h-full bg-white min-h-[500px] lg:min-h-[300px]"
+						className="bg-black text-white dark:text-black dark:bg-white">
 						<div className="w-full h-full">
-							<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight  text-transparent lg:text-5xl bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text">
-								{data?.firstName ? (
-									data?.firstName
-								) : (
-									<p className="font-light tracking-wider ml-1">
-										No First Name
-									</p>
-								)}
-								{data?.lastName ? (
-									data?.lastName
-								) : (
-									<p className="font-light tracking-wider ml-1">
-										No Last Name
-									</p>
-								)}
+							<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-transparent lg:text-5xl bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text">
+								{data?.firstName || "No First Name"}{" "}
+								{data?.lastName || "No Last Name"}
 							</h1>
 							<p className="font-light tracking-wider ml-1">
-								{data?.email}
+								{data?.email || "No Email"}
 							</p>
 							<h3 className="text-xl capitalize font-bold mt-5">
-								{data?.age} <span className="font-thin">years</span>
+								{data?.age || "N/A"}{" "}
+								<span className="font-thin">years</span>
 							</h3>
 						</div>
-					</GridBox>
+					</WobbleCard>
 
-					<GridBox
-						bgImage={DashGridImage01.src}
-						className="text-white bg-blend-multiply">
-						<h1 className="text-[6rem]  font-bold">
-							{acneHistorys?.length || 0}
+					<WobbleCard className="text-white dark:text-black bg-blend-multiply dark:bg-white bg-black">
+						<h1 className="text-[6rem] font-bold">
+							{acneHistory?.length || 0}
 						</h1>
 						<p className="font-semibold tracking-wide">Analysis Count</p>
-					</GridBox>
-					<GridBox>
-						<h1 className="text-5xl font-bold">10</h1>
+					</WobbleCard>
+					<WobbleCard className="bg-black text-white dark:text-black dark:bg-white">
+						<h1 className="text-5xl font-bold">
+							{/* Replace with dynamic treatments count if available */}
+							{data?.treatments?.length || 0}
+						</h1>
 						<p>Treatments</p>
-					</GridBox>
-					<GridBox className={"md:col-span-2"}>
-						<h1 className="text-5xl font-bold">10</h1>
+					</WobbleCard>
+					<WobbleCard className="md:col-span-2 bg-black text-white dark:text-black dark:bg-white">
+						<h1 className="text-5xl font-bold">
+							{/* Replace with dynamic treatments count if available */}
+							{data?.treatments?.length || 0}
+						</h1>
 						<p>Treatments</p>
-					</GridBox>
+					</WobbleCard>
+					<Link
+						href={"/doctors"}
+						className="text-xl text-white flex gap-5 w-full h-full cursor-pointer">
+						<WobbleCard>
+							<p>
+								Click here to see the Doctors List <ExternalLink />
+							</p>
+						</WobbleCard>
+					</Link>
 				</div>
-			</section>
-
-			<Section className="max-w-[1024px]  w-full mx-auto h-auto px-4  lg:px-4 xl:px-0 py-10 sm:my-0 my-10">
-				<Link
-					href={"/doctors"}
-					className="my-10 text-2xl flex gap-5 items-center bg-gradient-to-l from-pink-600 to-purple-500 p-2 rounded-md text-wrap">
-					See the Doctors List <ExternalLink />{" "}
-				</Link>
-
-				<h2 className="text-3xl font-bold">Analysis History</h2>
-				<Accordion
-					type="single"
-					collapsible
-					className="w-full my-5">
-					{acneHistorys.map((entry, idx) => (
-						<AccordionItem
-							key={entry.id}
-							value={`item-${idx}`}>
-							<AccordionTrigger>
-								<h2>
-									Acne Severity:{" "}
-									<span
-										className={`${
-											entry.severity === "Severe"
-												? "text-red-600"
-												: entry.severity === "Moderate"
-												? "text-orange-500"
-												: "text-yellow-500"
-										}`}>
-										{entry.severity}
-									</span>
-									<span className="ml-3 text-gray-600">
-										| Detected on{" "}
-										{`- ${entry.timestamp.toDate().toLocaleString()}`}{" "}
-									</span>
-								</h2>
-							</AccordionTrigger>
-							<AccordionContent>
-								<p>Total Spots: {entry.acne_spots}</p>
-								{/* <p>Total Area: {entry.total_acne_area}</p> */}
-								<h3 className="font-bold mt-2">
-									Recommended Treatments:
-								</h3>
-								<ul className="list-disc ml-5">
-									{entry.treatments.map((treat, i) => (
-										<li key={i}>{treat.description}</li>
-									))}
-								</ul>
-							</AccordionContent>
-						</AccordionItem>
-					))}
-				</Accordion>
 			</Section>
+
+			<Separator className="my-10" />
+
+			<AnalysisHistoryCard
+				acneHistory={acneHistory}
+				isHistoryLoading={isHistoryLoading}
+			/>
+
+			{!isHistoryLoading && acneHistory.length === 0 && (
+				<div className="text-center text-gray-500 mt-5">
+					No analysis history available.
+				</div>
+			)}
 		</>
 	);
 };
