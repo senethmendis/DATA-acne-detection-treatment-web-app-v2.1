@@ -8,8 +8,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RegisterImage } from "@/assets";
 
-import { toast, useToast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { Loader } from "lucide-react";
+import Link from "next/link";
 
 function SignUpPage() {
 	const router = useRouter();
@@ -155,6 +156,14 @@ function SignUpPage() {
 							{loading && <Loader className="size-6 animate-spin" />} Sign
 							up
 						</Button>
+						<Link href="/signin">
+							<p className="text-sm text-center mt-5">
+								Already have an account?{" "}
+								<span className="text-blue-500 hover:underline cursor-pointer">
+									Log In
+								</span>
+							</p>
+						</Link>
 					</form>
 				</div>
 			</Section>
