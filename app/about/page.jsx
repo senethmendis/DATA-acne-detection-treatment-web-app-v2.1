@@ -1,12 +1,6 @@
 import Section from "@/components/common/Section";
 import React from "react";
-import { SERVICES } from "@/constants";
-import { AboutPageImage1, AboutPageImage, AboutPageImage2 } from "@/assets";
-import { Button } from "@/components/ui/button";
-import { Link2 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs } from "@/components/ui/tabs";
-import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 
 const AboutPage = () => {
@@ -16,8 +10,15 @@ const AboutPage = () => {
 			value: "product",
 			content: (
 				<div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-purple-700 to-violet-900">
-					<p>Product Tab</p>
-					<DummyContent />
+					<p className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-yellow-500">
+						Revolutionizing Acne Detection with AI
+					</p>
+					<p className="text-lg md:text-2xl font-light mt-4">
+						Our AI-powered acne detection application analyzes skin conditions
+						in real time and provides personalized treatment recommendations.
+						Simply upload a photo, and let our advanced algorithm assess your
+						acne type and severity.
+					</p>
 				</div>
 			),
 		},
@@ -26,8 +27,16 @@ const AboutPage = () => {
 			value: "services",
 			content: (
 				<div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-purple-700 to-violet-900">
-					<p>Services tab</p>
-					<DummyContent />
+					<p className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500">
+						What We Offer
+					</p>
+					<ul className="text-lg md:text-2xl font-light mt-4 list-disc list-inside">
+						<li>Instant AI-based acne detection</li>
+						<li>Personalized skincare recommendations</li>
+
+						<li>Expert-backed treatment suggestions</li>
+						<li>Secure and private skin assessments</li>
+					</ul>
 				</div>
 			),
 		},
@@ -36,28 +45,13 @@ const AboutPage = () => {
 			value: "playground",
 			content: (
 				<div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-purple-700 to-violet-900">
-					<p>Playground tab</p>
-					<DummyContent />
-				</div>
-			),
-		},
-		{
-			title: "Content",
-			value: "content",
-			content: (
-				<div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-purple-700 to-violet-900">
-					<p>Content tab</p>
-					<DummyContent />
-				</div>
-			),
-		},
-		{
-			title: "Random",
-			value: "random",
-			content: (
-				<div className="w-full overflow-hidden relative h-full rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-purple-700 to-violet-900">
-					<p>Random tab</p>
-					<DummyContent />
+					<p className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 to-pink-500">
+						Try Our AI in Action
+					</p>
+					<p className="text-lg md:text-2xl font-light mt-4">
+						Want to see how our AI detects acne? Upload a sample image and get
+						a real-time analysis.
+					</p>
 				</div>
 			),
 		},
@@ -74,15 +68,3 @@ const AboutPage = () => {
 };
 
 export default AboutPage;
-
-const DummyContent = () => {
-	return (
-		<Image
-			src={AboutPageImage.src}
-			alt="dummy image"
-			width="1000"
-			height="1000"
-			className="object-cover object-left-top h-[60%]  md:h-[90%] absolute -bottom-10 inset-x-0 w-[90%] rounded-xl mx-auto"
-		/>
-	);
-};

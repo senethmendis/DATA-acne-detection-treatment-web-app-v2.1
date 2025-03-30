@@ -38,7 +38,7 @@ function SignInPage() {
 	return (
 		<>
 			<div className="grid min-h-svh lg:grid-cols-2">
-				<div className="flex flex-col gap-4 p-6 md:p-10">
+				<div className="flex flex-col gap-4 p-6 md:p-10 ">
 					<div className="flex flex-1 items-center justify-center">
 						<div className="w-full max-w-xs">
 							{/* <LoginForm /> */}
@@ -91,7 +91,7 @@ function SignInPage() {
 									Don&apos;t have an account?{" "}
 									<Link
 										href={"/signup"}
-										className="underline underline-offset-4">
+										className="underline underline-offset-4 text-blue-600">
 										Sign up
 									</Link>
 								</div>
@@ -99,67 +99,14 @@ function SignInPage() {
 						</div>
 					</div>
 				</div>
-				<div className="relative hidden bg-muted lg:block">
+				<div className="relative hidden bg-muted lg:block rounded-lg ">
 					<img
 						src={LoginImage.src}
 						alt="Image"
-						className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+						className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale rounded-lg"
 					/>
 				</div>
 			</div>
-
-			{/* <Section className="w-full flex flex-row">
-				<div className="w-1/2"></div>
-				<div className="w-1/2 flex flex-col">
-					<div className="form-wrapper">
-						<h1 className="mt-60 mb-30 text-4xl font-bold">Sign In</h1>
-						<form
-							onSubmit={handleForm}
-							className="form">
-							<div className="py-10 flex flex-col gap-4">
-								<div className=" flex flex-col">
-									<Label
-										htmlFor="email"
-										className="mb-2">
-										Email
-									</Label>
-
-									<Input
-										onChange={(e) => setEmail(e.target.value)}
-										required
-										type="email"
-										name="email"
-										id="email"
-										placeholder="example@mail.com"
-									/>
-								</div>
-
-								<Label
-									htmlFor="email"
-									className="mb-2">
-									Password
-								</Label>
-
-								<Input
-									onChange={(e) => setPassword(e.target.value)}
-									required
-									type="password"
-									name="password"
-									id="password"
-									placeholder="password"
-								/>
-
-								<Button
-									type="submit"
-									className="min-w-40">
-									Sign In
-								</Button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</Section>
-			<Section></Section> */}
 		</>
 	);
 }

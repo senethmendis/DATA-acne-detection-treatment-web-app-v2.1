@@ -96,23 +96,12 @@ const Dashboard = () => {
 					</WobbleCard>
 
 					<WobbleCard className="text-white dark:text-black bg-blend-multiply dark:bg-white bg-black">
-						<h1 className="text-4xl sm:text-[6rem] font-bold">
+						<h1 className="text-6xl sm:text-[6rem] font-bold">
 							{acneHistory?.length || 0}
 						</h1>
 						<p className="font-semibold tracking-wide">Analysis Count</p>
 					</WobbleCard>
-					<WobbleCard className="bg-black text-white dark:text-black dark:bg-white">
-						<h1 className="text-4xl sm:text-5xl font-bold">
-							{data?.treatments?.length || 0}
-						</h1>
-						<p>Treatments</p>
-					</WobbleCard>
-					<WobbleCard className="md:col-span-2 bg-black text-white dark:text-black dark:bg-white">
-						<h1 className="text-4xl sm:text-5xl font-bold">
-							{data?.treatments?.length || 0}
-						</h1>
-						<p>Treatments</p>
-					</WobbleCard>
+
 					<Link
 						href={"/doctors"}
 						className="text-lg sm:text-xl text-white flex gap-5 w-full h-full cursor-pointer">
