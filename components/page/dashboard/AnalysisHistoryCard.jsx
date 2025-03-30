@@ -1,6 +1,6 @@
 "use client";
 import Section from "@/components/common/Section";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import {
 	Accordion,

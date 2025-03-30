@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import getData from "@/firebase/firestore/getData";
@@ -18,7 +18,6 @@ import { ExternalLink, FileImage, Image, Loader } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-import { AiGenaratedWaterMarkLogo } from "@/assets/icons";
 
 const UploadImage = () => {
 	const { toast } = useToast();

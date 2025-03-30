@@ -1,5 +1,5 @@
 "use client";
-import { DataLogoTextLight } from "@/assets";
+
 import React, { useState } from "react";
 import { Instagram, Linkedin, Twitter } from "lucide-react";
 

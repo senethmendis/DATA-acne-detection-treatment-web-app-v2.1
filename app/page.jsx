@@ -1,6 +1,5 @@
 "use client";
 import Section from "@/components/common/Section";
-import { Button } from "@/components/ui/button";
 import UploadImageComponent from "@/components/page/home/UploadImageComponent";
 import { useAuthContext } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
