@@ -1,18 +1,14 @@
 "use client";
 import Section from "@/components/common/Section";
 import { Button } from "@/components/ui/button";
-import { SectionImage, AboutPageImage } from "@/assets";
-import { useToast } from "@/hooks/use-toast";
 import UploadImageComponent from "@/components/page/home/UploadImageComponent";
 import { useAuthContext } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
-import { SparklesCore } from "@/components/ui/sparkles";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { AnimatePresence, motion } from "framer-motion";
-import { Separator } from "@radix-ui/react-dropdown-menu";
 
 const words = [
 	{
@@ -60,9 +56,12 @@ const Home = () => {
 				</p>
 
 				<Link href={"/about"}>
-					<Button className="w-full sm:w-[300px] md:max-w-[200px] hover:bg-pink-600 transition-all ease-out hover:text-white">
+					<motion.button
+						whileHover={{ scale: 1.1 }}
+						whileTap={{ scale: 0.8 }}
+						className="w-auto py-2 px-6 rounded-md  bg-pink-600 flex gap-2 transition-all ease-out hover:text-white">
 						Discover <ArrowRight />
-					</Button>
+					</motion.button>
 				</Link>
 
 				<div className="aqua__gradient w-[60%] sm:w-[40%] h-[60%] sm:h-[40%] absolute -z-40" />
@@ -80,15 +79,20 @@ const Home = () => {
 
 				<div className="w-full flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
 					<Link href={"/about"}>
-						<Button className="w-full sm:w-auto shadow-md hover:shadow-lg hover:bg-blue-600 px-6 py-3 bg-blue-500 rounded-full text-white font-medium transition duration-200 text-center">
+						<motion.button
+							whileHover={{ scale: 1.1 }}
+							whileTap={{ scale: 0.8 }}
+							className="w-full sm:w-auto shadow-md hover:shadow-lg hover:bg-blue-600 px-6 py-3 bg-blue-500 rounded-full text-white font-medium transition duration-200 text-center">
 							Learn More
-						</Button>
+						</motion.button>
 					</Link>
-					<Button
-						className="w-[120px] sm:w-[300px] shadow-md hover:shadow-lg hover:bg-blue-600 px-6 py-3 bg-blue-500 rounded-full text-white font-medium transition duration-200 text-center"
+					<motion.button
+						whileHover={{ scale: 1.1 }}
+						whileTap={{ scale: 0.8 }}
+						className="w-full sm:w-auto  shadow-md hover:shadow-lg hover:bg-blue-600 px-6 py-3 bg-blue-500 rounded-full text-white font-medium  text-center"
 						onClick={() => router.push("/signin")}>
 						Login
-					</Button>
+					</motion.button>
 				</div>
 
 				<div className="pink__gradient w-[150px] sm:w-[300px] h-[150px] sm:h-[300px] absolute -z-50" />
