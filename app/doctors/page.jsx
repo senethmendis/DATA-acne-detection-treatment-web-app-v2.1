@@ -3,13 +3,11 @@ import Section from "@/components/common/Section";
 import React, { useState } from "react";
 import { DOCSTORS_LIST } from "@/constants";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
+
 import {
 	Table,
 	TableBody,
-	TableCaption,
 	TableCell,
-	TableFooter,
 	TableHead,
 	TableHeader,
 	TableRow,
@@ -18,7 +16,6 @@ import {
 import {
 	Pagination,
 	PaginationContent,
-	PaginationEllipsis,
 	PaginationItem,
 	PaginationLink,
 	PaginationNext,
@@ -92,13 +89,13 @@ const DoctorsList = () => {
 	return (
 		<>
 			<Section className="mt-10 mb-24">
-				<div className="mb-4 flex flex-col md:flex-row gap-4">
+				<div className="mb-4 mx-2 md:mx-0 flex flex-col md:flex-row gap-4">
 					<Input
 						type="text"
 						placeholder="Search doctors by name..."
 						value={searchTerm}
 						onChange={(e) => setSearchTerm(e.target.value)}
-						className="w-full p-2 border rounded-md"
+						className="w-full p-2 border rounded-md "
 					/>
 					<Popover>
 						<PopoverTrigger asChild>
@@ -155,7 +152,7 @@ const DoctorsList = () => {
 							</Command>
 						</PopoverContent>
 					</Popover>
-					<div className="flex gap-2">
+					<div className="flex gap-2 mx-1 md:mx-0">
 						<Button
 							variant={sortOrder === "A-Z" ? "default" : "outline"}
 							onClick={() => setSortOrder("A-Z")}>

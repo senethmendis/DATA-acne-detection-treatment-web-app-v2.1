@@ -138,6 +138,10 @@ body {
 	background: linear-gradient(180deg, rgba(188, 165, 255, 0) 0%, #6ef5ff 100%);
 	filter: blur(123px);
 }
+.green__gradient {
+	background: linear-gradient(180deg, rgba(188, 165, 255, 0) 0%, #8bff6e 100%);
+	filter: blur(123px);
+}
 
 .pink__gradient {
 	background: linear-gradient(90deg, #b076f3 0%, #ff4bfc 100%);

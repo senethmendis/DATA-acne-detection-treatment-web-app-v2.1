@@ -28,7 +28,8 @@ const Header = () => {
 		<header className="max-w-[1024px] mx-auto w-full flex flex-row px-5 sm:px-0 md:px-5 lg:px-5 xl:px-0">
 			<nav className="w-full flex flex-row items-center justify-between py-3">
 				<Link href={"/"}>
-					<DataLogoDark className="w-10 h-10" />
+					<DataLogoLight className="w-10 h-10 hidden dark:block" />
+					<DataLogoDark className="w-10 h-10 dark:hidden" />
 				</Link>
 
 				<div className="flex items-center gap-5">

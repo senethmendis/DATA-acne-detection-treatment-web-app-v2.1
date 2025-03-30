@@ -1,6 +1,6 @@
 "use client";
 import Section from "@/components/common/Section";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import {
 	Accordion,
@@ -13,10 +13,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 const AnalysisHistoryCard = ({ acneHistory, isHistoryLoading }) => {
 	return (
 		<>
-			<Section className="max-w-[1024px] w-full mx-auto h-auto px-4 sm:px-2 lg:px-4 xl:px-0 py-10 sm:my-0 my-10">
+			<Section className=" relative max-w-[1024px] w-full mx-auto h-auto px-4 sm:px-2 lg:px-4 xl:px-0 py-10 sm:my-0 my-10">
 				<h2 className="text-2xl sm:text-3xl font-bold text-center sm:text-left">
 					Analysis History
 				</h2>
+				<div className="green__gradient  absolute w-[200px] h-[200px] z-50" />
 				<Accordion
 					type="single"
 					collapsible
@@ -52,7 +53,7 @@ const AnalysisHistoryCard = ({ acneHistory, isHistoryLoading }) => {
 									{entry.timestamp.toDate().toLocaleString()}
 								</span>
 							</AccordionTrigger>
-							<AccordionContent className="p-3 sm:p-4 bg-gray-800 rounded-md mb-3">
+							<AccordionContent className="p-3 sm:p-4 bg-black rounded-md mb-3">
 								<p className="text-sm sm:text-base text-gray-300">
 									Total Spots:{" "}
 									<span className="font-semibold">

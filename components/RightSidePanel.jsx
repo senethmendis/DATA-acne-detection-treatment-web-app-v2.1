@@ -17,7 +17,7 @@ import { useAuthContext } from "@/context/AuthContext";
 import { signOutUser } from "@/utils/signOut";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { LogOut, User2Icon } from "lucide-react";
+import { LogOut } from "lucide-react";
 
 const RightSidePanel = () => {
 	const { user } = useAuthContext();

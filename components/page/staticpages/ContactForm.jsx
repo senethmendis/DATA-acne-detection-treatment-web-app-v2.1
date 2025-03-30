@@ -15,7 +15,7 @@ const ContactForm = () => {
 
 	return (
 		<form
-			className="w-full h-full flex-col flex"
+			className="w-full h-full flex-col flex mt-5"
 			action=""
 			onSubmit={handleSubmit(onSubmit)}>
 			<h1 className="text-5xl font-bold mb-">Let's Get In Touch</h1>
