@@ -98,5 +98,5 @@ This project is licensed under the **MIT License**.
 ---
 **Author:** Seneth Mendis Kumarasingha
 
-**GitHub:** ([Seneth Mendis](https://github.com/senethmendis))
+**GitHub:** [Seneth Mendis](https://github.com/senethmendis)
 
