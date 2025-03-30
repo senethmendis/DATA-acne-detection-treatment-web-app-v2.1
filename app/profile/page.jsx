@@ -94,7 +94,7 @@ const UserProfilePage = () => {
 		if (!file) return;
 
 		setImageUploading(true);
-		const storageRef = ref(storage, `profile_images/${user.uid}`);
+		const storageRef = ref(storage, `avatars/${user.uid}`);
 
 		try {
 			// Upload image to Firebase Storage
@@ -104,18 +104,11 @@ const UserProfilePage = () => {
 			// Update Firebase Auth Profile
 			await updateProfile(auth.currentUser, { photoURL: downloadURL });
 
-			// Save image URL to Firestore with profile_image key
-			await addData("users", user.uid, {
-				avatar: downloadURL,
-				profile_image: downloadURL,
-			});
+			// Save image URL to Firestore
+			await addData("users", user.uid, { avatar: downloadURL });
 
 			// Update UI
-			setUserData((prev) => ({
-				...prev,
-				avatar: downloadURL,
-				profile_image: downloadURL,
-			}));
+			setUserData((prev) => ({ ...prev, avatar: downloadURL }));
 			toast({ title: "Avatar Updated!" });
 		} catch (err) {
 			console.log("Error uploading file:", err);

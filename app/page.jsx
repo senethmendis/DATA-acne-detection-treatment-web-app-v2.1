@@ -11,6 +11,8 @@ import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+import { AnimatePresence, motion } from "framer-motion";
+import { Separator } from "@radix-ui/react-dropdown-menu";
 
 const words = [
 	{
@@ -41,7 +43,8 @@ const Home = () => {
 
 	return (
 		<main className="max-w-[1024px] w-full mx-auto px-4 sm:px-0">
-			{hide && <UploadImageComponent />}
+			{/* image upload and porcess */}
+			<AnimatePresence>{hide && <UploadImageComponent />}</AnimatePresence>
 
 			<Section className="relative flex-col items-center gap-5 flex justify-center mb-10">
 				<h1 className="md:text-7xl text-3xl lg:text-5xl font-bold text-center dark:text-white">
@@ -64,14 +67,15 @@ const Home = () => {
 
 				<div className="aqua__gradient w-[60%] sm:w-[40%] h-[60%] sm:h-[40%] absolute -z-40" />
 			</Section>
-
 			<Section className="dark:bg-black/50 backdrop-blur-lg relative w-full border flex flex-col gap-8 sm:gap-10 justify-center items-center my-10 rounded-2xl py-8 sm:py-10">
 				<h1 className="text-xl sm:text-3xl md:text-5xl mx-auto flex flex-col justify-center font-bold text-center dark:text-white">
 					<TypewriterEffectSmooth
-						className={"text-2xl font-bold"}
+						className={"text-2xl font-bold mx-auto"}
 						words={words}
 					/>
-					<span className="block mt-2">Acne and Skincare System</span>
+					<span className="block mt-2 text-wrap">
+						Acne and Skin Treatment System
+					</span>
 				</h1>
 
 				<div className="w-full flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
