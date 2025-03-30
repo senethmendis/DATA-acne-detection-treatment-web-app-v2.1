@@ -3,13 +3,11 @@ import Section from "@/components/common/Section";
 import React, { useState } from "react";
 import { DOCSTORS_LIST } from "@/constants";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
+
 import {
 	Table,
 	TableBody,
-	TableCaption,
 	TableCell,
-	TableFooter,
 	TableHead,
 	TableHeader,
 	TableRow,
@@ -18,7 +16,6 @@ import {
 import {
 	Pagination,
 	PaginationContent,
-	PaginationEllipsis,
 	PaginationItem,
 	PaginationLink,
 	PaginationNext,

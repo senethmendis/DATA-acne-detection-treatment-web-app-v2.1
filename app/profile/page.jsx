@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
+
 import { useForm } from "react-hook-form";
 
 import { AboutPageImage } from "@/assets";
@@ -9,16 +9,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
-import { ArrowUpRight, LoaderCircle, LoaderPinwheelIcon } from "lucide-react";
+
+import { LoaderCircle } from "lucide-react";
 
 import { useAuthContext } from "@/context/AuthContext";
 import getDoument from "@/firebase/firestore/getData";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { updateProfile, getAuth } from "firebase/auth";
 import addData from "@/firebase/firestore/addData";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 const UserProfilePage = () => {
 	const router = useRouter;

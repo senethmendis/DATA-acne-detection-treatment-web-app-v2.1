@@ -1,12 +1,6 @@
 import Section from "@/components/common/Section";
 import React from "react";
-import { SERVICES } from "@/constants";
-import { AboutPageImage1, AboutPageImage, AboutPageImage2 } from "@/assets";
-import { Button } from "@/components/ui/button";
-import { Link2 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs } from "@/components/ui/tabs";
-import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 
 const AboutPage = () => {
