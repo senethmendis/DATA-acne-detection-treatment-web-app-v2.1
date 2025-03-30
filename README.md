@@ -5,7 +5,6 @@ This is a **Next.js** project bootstrapped with [`create-next-app`](https://gith
 ## Features
 - **AI-Powered Acne Detection**: Upload an image, and the AI will analyze acne severity.
 - **Personalized Skincare Recommendations**: Get tailored treatment suggestions based on acne type.
-- **Progress Tracking**: Monitor changes in acne conditions over time.
 - **Educational Content**: Access expert skincare advice and DIY home remedies.
 
 ## Getting Started
