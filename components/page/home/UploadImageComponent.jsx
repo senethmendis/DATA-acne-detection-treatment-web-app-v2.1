@@ -7,6 +7,7 @@ import { storage, db } from "@/firebase/config";
 import { collection, addDoc } from "firebase/firestore";
 import { useAuthContext } from "@/context/AuthContext";
 import { getDocs } from "firebase/firestore";
+import { Badge } from "@/components/ui/badge";
 
 import Section from "@/components/common/Section";
 import { Button } from "@/components/ui/button";
@@ -233,6 +234,16 @@ const UploadImage = () => {
 							<h1 className="font-bold text-xl">
 								Recommended Treatments and Solutions
 							</h1>
+							<Badge
+								className={`${
+									result?.severity === "Mild"
+										? "bg-green-500 text-white"
+										: result?.severity === "Moderate"
+										? "bg-yellow-500 text-white"
+										: result?.severity === "Severe"
+								}`}>
+								{result?.severity || "Serverity Not Calculated"}
+							</Badge>
 						</>
 					)}
 
