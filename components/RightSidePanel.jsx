@@ -18,6 +18,8 @@ import { signOutUser } from "@/utils/signOut";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
+import { ArrowArt, ArrowUp, ArrowDownCircle } from "@/assets/icons";
+import Image from "next/image";
 
 const RightSidePanel = () => {
 	const { user } = useAuthContext();
@@ -64,7 +66,7 @@ const RightSidePanel = () => {
 					<SheetDescription></SheetDescription>
 				</SheetHeader>
 
-				<div className="w-full flex flex-col gap-5 mt-10">
+				<div className="w-full flex flex-col gap-5 mt-10 relative">
 					{hide && (
 						<Link
 							href={"/dashboard"}
@@ -87,6 +89,14 @@ const RightSidePanel = () => {
 							className="underline">
 							Signin
 						</Link>
+					)}
+
+					{!hide && (
+						<Image
+							alt="arrow acicle"
+							src={ArrowDownCircle}
+							className="absolute -z-20 dark:invert rotate-180 -top-28 -left-28"
+						/>
 					)}
 
 					{!hide && (

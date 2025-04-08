@@ -5,13 +5,17 @@ import Link from "next/link";
 import RightSidePanel from "@/components/RightSidePanel";
 import { ModeToggle } from "@/components/ModeToggle";
 import { useState, useEffect, useRef } from "react";
-import { Menu } from "lucide-react";
+import { Menu, Undo } from "lucide-react";
+import { ArrowArt } from "@/assets/icons";
+import Image from "next/image";
+import { useAuthContext } from "@/context/AuthContext";
 
 const Header = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const { user } = useAuthContext();
 	const menuRef = useRef(null);
+	const [hide, setHide] = useState(false);
 
-	// Close menu when clicking outside
 	useEffect(() => {
 		const handleClickOutside = (event) => {
 			if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -24,8 +28,26 @@ const Header = () => {
 		};
 	}, []);
 
+	useEffect(() => {
+		if (!user) {
+			setHide(false);
+		} else {
+			setHide(true);
+		}
+	}, [user]);
+
 	return (
-		<header className="max-w-[1024px] mx-auto w-full flex flex-row px-5 sm:px-0 md:px-5 lg:px-5 xl:px-0">
+		<header className="max-w-[1024px] mx-auto w-full flex flex-row px-5 sm:px-0 md:px-5 lg:px-5 xl:px-0 relative">
+			{/* Render only if hide is false */}
+			{!hide && (
+				<div className="absolute right-0 w-[20%] top-10">
+					<Image
+						alt="arrow"
+						src={ArrowArt}
+						className="dark:invert"
+					/>
+				</div>
+			)}
 			<nav className="w-full flex flex-row items-center justify-between py-3">
 				<Link href={"/"}>
 					<DataLogoLight className="w-10 h-10 hidden dark:block" />
