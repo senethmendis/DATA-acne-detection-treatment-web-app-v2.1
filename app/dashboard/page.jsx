@@ -7,10 +7,17 @@ import { useRouter } from "next/navigation";
 import getData from "@/firebase/firestore/getData";
 import { WobbleCard } from "@/components/ui/wobble-card";
 import { Separator } from "@/components/ui/separator";
-import AnalysisHistoryCard from "@/components/page/dashboard/AnalysisHistoryCard";
+
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { db } from "@/firebase/config"; // Ensure the Firebase config is imported
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Dashboard = () => {
 	const { user } = useAuthContext();
@@ -111,15 +118,74 @@ const Dashboard = () => {
 							</p>
 						</WobbleCard>
 					</Link>
+
+					<Link
+						href={"/"}
+						className="font-bold text-4xl hover:text-teal-300 w-full h-full cursor-pointer">
+						<WobbleCard
+							containerClassName="col-span-1 lg:col-span-2 h-full bg-white min-h-[300px] sm:min-h-[400px] lg:min-h-[300px]"
+							className="bg-black text-white dark:text-black dark:bg-white flex justify-center items-center">
+							Analyse Again
+						</WobbleCard>
+					</Link>
 				</div>
 			</Section>
 
 			<Separator className="my-10" />
 
-			<AnalysisHistoryCard
-				acneHistory={acneHistory}
-				isHistoryLoading={isHistoryLoading}
-			/>
+			<Section className=" relative max-w-[1024px] w-full mx-auto h-auto px-4 sm:px-2 lg:px-4 xl:px-0 py-10 sm:my-0 my-10">
+				<h2 className="text-2xl sm:text-3xl font-bold text-center sm:text-left">
+					Analysis History
+				</h2>
+				<div className="green__gradient  absolute w-[200px] h-[200px] z-50" />
+				<Accordion
+					type="single"
+					collapsible
+					className="w-full my-5">
+					{acneHistory?.map((entry, idx) => (
+						<AccordionItem
+							key={entry.id}
+							value={`item-${idx}`}
+							className="border-b border-gray-700">
+							<AccordionTrigger className="flex flex-col sm:flex-row justify-between items-start sm:items-center py-3">
+								<h2 className="text-base sm:text-lg font-medium">
+									Acne Severity:
+									<span
+										className={`ml-2 font-semibold ${
+											entry.severity === "Severe"
+												? "text-red-500"
+												: entry.severity === "Moderate"
+												? "text-orange-400"
+												: "text-yellow-400"
+										}`}>
+										{entry.severity}
+									</span>
+								</h2>
+								<span className="text-sm text-gray-500 mt-2 sm:mt-0">
+									Detected on -{" "}
+									{entry.timestamp.toDate().toLocaleString()}
+								</span>
+							</AccordionTrigger>
+							<AccordionContent className="p-3 sm:p-4 bg-black rounded-md mb-3">
+								<p className="text-sm sm:text-base text-gray-300">
+									Total Spots:{" "}
+									<span className="font-semibold">
+										{entry.acne_spots}
+									</span>
+								</p>
+								<h3 className="font-semibold mt-3 text-gray-200 text-sm sm:text-base">
+									Recommended Treatments:
+								</h3>
+								<ul className="list-disc ml-4 sm:ml-5 text-gray-400 text-sm sm:text-base">
+									{entry.treatments.map((treat, i) => (
+										<li key={i}>{treat.description}</li>
+									))}
+								</ul>
+							</AccordionContent>
+						</AccordionItem>
+					))}
+				</Accordion>
+			</Section>
 
 			{!isHistoryLoading && acneHistory.length === 0 && (
 				<div className="text-center text-gray-500 mt-5">

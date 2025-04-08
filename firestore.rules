@@ -1,0 +1,17 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Allow authenticated users to access the processed_images folder
+    match /processed_images/{allPaths=**} {
+      allow read, write: if request.auth != null;
+    }
+    // Allow authenticated users to access the profile_images folder
+    match /profile_images/{allPaths=**} {
+      allow read, write: if request.auth != null;
+    }
+    // Allow authenticated users to access the avatars folder
+    match /avatars/{allPaths=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}

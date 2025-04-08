@@ -1,3 +1,30 @@
+export const FEATURES = [
+	{
+		quote: "Upload a selfie and get instant analysis powered by AI to detect acne severity and types with high accuracy.",
+		name: "AI-Powered Detection",
+		title: "YOLOv8 Computer Vision",
+	},
+	{
+		quote: "Based on your acne analysis, get personalized skincare and medication suggestions tailored to your skin condition.",
+		name: "Personalized Treatment",
+		title: "Smart Recommendation Engine",
+	},
+	{
+		quote: "Track your acne progression with visual history and data logs to monitor what treatments work best for you.",
+		name: "Progress Tracker",
+		title: "Daily & Weekly Insights",
+	},
+	{
+		quote: "Access expert skincare tips and natural DIY remedies to complement your treatment journey at home.",
+		name: "Educational Content",
+		title: "DIY & Expert Advice",
+	},
+	{
+		quote: "Easy-to-use interface with mobile-first design, dark mode support, and fast performance for a smooth experience.",
+		name: "User Friendly Design",
+		title: "Modern UI/UX",
+	},
+];
 
 
 export const NAVBARITEMS = [
