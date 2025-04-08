@@ -42,6 +42,7 @@
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-dropzone": "^14.3.8",
+		"react-easy-crop": "^5.4.1",
 		"react-hook-form": "^7.54.2",
 		"recharts": "^2.15.1",
 		"simplex-noise": "^4.0.3",

@@ -76,7 +76,7 @@ const UploadImage = () => {
 	}, [user]);
 
 	const handleFileChange = (e) => {
-		setImage(e.target.files[0]);
+		setImage(e[0]);
 	};
 
 	const handleSubmit = async (e) => {
@@ -104,9 +104,13 @@ const UploadImage = () => {
 			apiData.append("file", image);
 
 			// Send request to backend
-			const res = await axios.post("http://127.0.0.1:8000/analyze_acne/", apiData, {
-				headers: { "Content-Type": "multipart/form-data" },
-			});
+			const res = await axios.post(
+				`${process.env.NEXT_PUBLIC_BASE_BACKEND_URL}`,
+				apiData,
+				{
+					headers: { "Content-Type": "multipart/form-data" },
+				}
+			);
 
 			const {
 				acne_spots,
@@ -179,12 +183,12 @@ const UploadImage = () => {
 					className="w-full md:w-1/2 flex flex-col justify-center items-center gap-6 md:py-0">
 					<div className="flex items-center justify-center w-full ">
 						{/* <Input
-								id="dropzone-file"
-								type="file"
-								accept="image/*"
-								onChange={handleFileChange}
-								className="bg-transparent border-white/50"
-							/> */}
+							id="dropzone-file"
+							type="file"
+							accept="image/*"
+							onChange={handleFileChange}
+							className="bg-transparent border-white/50"
+						/> */}
 						<div className="w-full max-w-4xl mr-5 mx-auto min-h-32 border border-dashed bg-black/20 border-neutral-200 dark:border-neutral-800 rounded-lg">
 							<FileUpload onChange={handleFileChange} />
 						</div>
