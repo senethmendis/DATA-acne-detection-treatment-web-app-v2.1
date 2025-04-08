@@ -20,6 +20,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 
+import { FileUpload } from "@/components/ui/file-upload";
+
 const UploadImage = () => {
 	const { toast } = useToast();
 	const { user } = useAuthContext();
@@ -176,26 +178,16 @@ const UploadImage = () => {
 					onSubmit={handleSubmit}
 					className="w-full md:w-1/2 flex flex-col justify-center items-center gap-6 md:py-0">
 					<div className="flex items-center justify-center w-full ">
-						<label
-							htmlFor="dropzone-file"
-							className="flex flex-col items-center justify-center p-4 border border-gray-300 border-dashed rounded-lg cursor-pointer bg-black/50 backdrop-blur-3xl shadow-lg ">
-							<div className="flex flex-col items-center justify-center pt-5 pb-6 ">
-								<p className="mb-2 text-sm text-white dark:text-gray-400">
-									<span className="font-semibold">Click to upload</span>{" "}
-									or drag and drop
-								</p>
-								<p className="text-xs text-white dark:text-gray-400">
-									PNG, JPG (MAX. 800x400px)
-								</p>
-							</div>
-							<Input
+						{/* <Input
 								id="dropzone-file"
 								type="file"
 								accept="image/*"
 								onChange={handleFileChange}
 								className="bg-transparent border-white/50"
-							/>
-						</label>
+							/> */}
+						<div className="w-full max-w-4xl mr-5 mx-auto min-h-32 border border-dashed bg-black/20 border-neutral-200 dark:border-neutral-800 rounded-lg">
+							<FileUpload onChange={handleFileChange} />
+						</div>
 					</div>
 					<div className="flex gap-4">
 						<Button
