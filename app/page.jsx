@@ -108,6 +108,7 @@ const Home = () => {
 			<Section
 				id="#bottom"
 				className=" my-10 rounded-2xl py-8 sm:py-10">
+				<h1 className="font-semibold text-4xl">Features</h1>
 				<InfiniteMovingCards
 					items={FEATURES}
 					direction="right"
