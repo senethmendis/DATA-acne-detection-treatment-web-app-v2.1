@@ -29,7 +29,7 @@ function SignInPage() {
 			return console.log(error);
 		}
 
-		toast({ title: `Login successful!` });
+		toast({ title: `Login successful!`, className: "bg-green-500" });
 		return router.push("/");
 	};
 

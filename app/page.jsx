@@ -1,13 +1,15 @@
 "use client";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import Section from "@/components/common/Section";
 import UploadImageComponent from "@/components/page/home/UploadImageComponent";
 import { useAuthContext } from "@/context/AuthContext";
-import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Mouse } from "lucide-react";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { AnimatePresence, motion } from "framer-motion";
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
+import { FEATURES } from "@/constants";
 
 const words = [
 	{
@@ -63,6 +65,13 @@ const Home = () => {
 					</motion.button>
 				</Link>
 
+				<button>
+					<Mouse
+						className=" lg:mt-24 md:mt-14 sm:mt-10 animate-bounce transition-all size-9 cursor-pointer"
+						href="#bottom"
+					/>
+				</button>
+
 				<div className="aqua__gradient w-[60%] sm:w-[40%] h-[60%] sm:h-[40%] absolute -z-40" />
 			</Section>
 			<Section className="dark:bg-black/50 backdrop-blur-lg relative w-full border flex flex-col gap-8 sm:gap-10 justify-center items-center my-10 rounded-2xl py-8 sm:py-10">
@@ -95,6 +104,16 @@ const Home = () => {
 				</div>
 
 				<div className="pink__gradient w-[150px] sm:w-[300px] h-[150px] sm:h-[300px] absolute -z-50" />
+			</Section>
+			<Section
+				id="#bottom"
+				className=" my-10 rounded-2xl py-8 sm:py-10">
+				<InfiniteMovingCards
+					items={FEATURES}
+					direction="right"
+					speed="slow"
+					pauseOnHover
+				/>
 			</Section>
 		</main>
 	);
