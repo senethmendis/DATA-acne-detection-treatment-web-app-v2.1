@@ -45,7 +45,7 @@ const Home = () => {
 
 			<Section className="relative flex-col items-center gap-5 flex justify-center mb-10">
 				<h1 className="md:text-7xl text-3xl lg:text-5xl font-bold text-center dark:text-white">
-					Datection and Treatment for Acne
+					Detection and Treatment for Acne
 				</h1>
 				<p className="text-lg sm:text-2xl px-2 sm:px-0 text-center">
 					<span className="font-semibold bg-gradient-to-l from-pink-600 bg-clip-text text-transparent to-purple-500">

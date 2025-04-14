@@ -193,6 +193,16 @@ const UploadImage = () => {
 							<FileUpload onChange={handleFileChange} />
 						</div>
 					</div>
+
+					<ol className="text-sm text-gray-500 dark:text-gray-400 list-decimal list-inside">
+						<li className="text-white">
+							Make Sure that you have removed anythign thats hides you skin
+						</li>
+						<li className="text-white">User a well lit area for the scan</li>
+						<li className="text-white">
+							Make sure you are not wearing any makeup
+						</li>
+					</ol>
 					<div className="flex gap-4">
 						<Button
 							type="submit"
