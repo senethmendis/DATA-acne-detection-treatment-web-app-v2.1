@@ -11,7 +11,7 @@ import { LoginImage } from "@/assets";
 import { useAuthContext } from "@/context/AuthContext";
 import Link from "next/link";
 
-function SignInPage() {
+const SignInPage = () => {
 	const router = useRouter();
 	const { toast } = useToast();
 	const { user } = useAuthContext();
@@ -109,6 +109,6 @@ function SignInPage() {
 			</div>
 		</>
 	);
-}
+};
 
 export default SignInPage;
