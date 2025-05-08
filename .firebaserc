@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "acne-detection-web-app"
-  }
+    "default": "acne-detection-web-app",
+    "senethmendis": "uob-app-acne-detection"
+  },
+  "targets": {},
+  "etags": {}
 }
