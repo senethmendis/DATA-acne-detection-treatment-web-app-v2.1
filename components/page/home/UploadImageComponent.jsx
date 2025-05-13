@@ -55,21 +55,6 @@ const UploadImage = () => {
 				}
 			};
 
-			const getUserAcneData = async (userId) => {
-				try {
-					const querySnapshot = await getDocs(
-						collection(db, `users/${userId}/acne_detections`)
-					);
-					const history = querySnapshot.docs.map((doc) => ({
-						id: doc.id,
-						...doc.data(),
-					}));
-					setAcneHistory(history);
-				} catch (error) {
-					console.error("Error fetching acne data:", error);
-				}
-			};
-
 			getUserData();
 			// getUserAcneData(user.uid);
 		}
@@ -163,9 +148,8 @@ const UploadImage = () => {
 	};
 
 	const handleClearImage = () => {
+		window.location.reload();
 		setImage(null);
-		setFormData(null);
-		setResult(null);
 	};
 
 	console.log("results", result);
@@ -214,12 +198,10 @@ const UploadImage = () => {
 								{loading && `Processing...`} {!loading && "Upload Image"}
 							</span>
 						</Button>
-
 						<Button
-							type="reset"
-							onChange={handleClearImage}
-							disabled={loading}
-							className="rounded-full max-w-52 px-10 dark:bg-white dark:text-black text-white  border font-bold">
+							type="button"
+							onClick={handleClearImage}
+							className="bg-gray-200 hover:bg-white text-black font-bold py-2 px-8 rounded-full">
 							Clear
 						</Button>
 					</div>
