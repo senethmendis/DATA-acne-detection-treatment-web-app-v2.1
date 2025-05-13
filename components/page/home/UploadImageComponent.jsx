@@ -55,21 +55,6 @@ const UploadImage = () => {
 				}
 			};
 
-			const getUserAcneData = async (userId) => {
-				try {
-					const querySnapshot = await getDocs(
-						collection(db, `users/${userId}/acne_detections`)
-					);
-					const history = querySnapshot.docs.map((doc) => ({
-						id: doc.id,
-						...doc.data(),
-					}));
-					setAcneHistory(history);
-				} catch (error) {
-					console.error("Error fetching acne data:", error);
-				}
-			};
-
 			getUserData();
 			// getUserAcneData(user.uid);
 		}
