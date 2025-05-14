@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import { useForm } from "react-hook-form";
 
-import { AboutPageImage } from "@/assets";
+import { AboutPageImage, DefaultProfileImage } from "@/assets";
 import Section from "@/components/common/Section";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -138,7 +138,9 @@ const UserProfilePage = () => {
 			<div className="w-full md:w-auto mx-auto flex flex-col items-center gap-5">
 				<div
 					style={{
-						backgroundImage: `url(${userData.avatar || AboutPageImage.src})`,
+						backgroundImage: `url(${
+							userData.avatar || DefaultProfileImage.src
+						})`,
 					}}
 					className="w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] md:w-[250px] md:h-[250px] bg-cover bg-center rounded-full border-2"
 				/>

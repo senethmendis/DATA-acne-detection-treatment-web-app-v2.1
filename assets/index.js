@@ -8,9 +8,11 @@ import LoginImage from '@/assets/Images/login_image.webp'
 import NoPreviewImage from '@/assets/Images/no_preview.png'
 import DashGridImage01 from '@/assets/Images/dash-grid-1.webp'
 import FlipperImg from '@/assets/Images/product_img.webp'
+import DefaultProfileImage from '@/assets/Images/user.png'
 
 // images
 export {
+	DefaultProfileImage,
 	SectionImage,
 	AboutPageImage, ContactImage, AboutPageImage2, ContactPageImage, RegisterImage, LoginImage, NoPreviewImage, DashGridImage01, FlipperImg
 }
